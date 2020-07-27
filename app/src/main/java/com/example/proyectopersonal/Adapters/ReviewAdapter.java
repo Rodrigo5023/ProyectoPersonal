@@ -28,14 +28,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.autorReview =itemView.findViewById(R.id.textViewNombre);
-            this.cuerpoReview = itemView.findViewById(R.id.textViewPersonaje);}
+            this.autorReview =itemView.findViewById(R.id.textViewAutor);
+            this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario);}
     }
 
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(contexto).inflate(R.layout.adapter_cast_rv,parent,false);
+        View itemView = LayoutInflater.from(contexto).inflate(R.layout.adapter_review_rv,parent,false);
         ReviewAdapter.ReviewViewHolder reviewViewHolder = new ReviewAdapter.ReviewViewHolder(itemView);
         return reviewViewHolder; }
 
