@@ -1,10 +1,11 @@
 package com.example.proyectopersonal.Adapters;
 
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Entidades.Movie;
-import com.example.proyectopersonal.Entidades.Review;
+import com.example.proyectopersonal.Detalles.PeliculaActivity;
 import com.example.proyectopersonal.R;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
@@ -33,6 +34,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public TextView fechaEstrenoMovie;
         public TextView rateMovie;
         public ImageView posterMovie;
+        public Button botonDetalles;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,7 +42,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             this.overviewMovie = itemView.findViewById(R.id.textViewOverview);
             this.fechaEstrenoMovie = itemView.findViewById(R.id.textViewEstreno);
             this.rateMovie = itemView.findViewById(R.id.textViewRate);
-            this.posterMovie = itemView.findViewById(R.id.imageViewPoster);}
+            this.posterMovie = itemView.findViewById(R.id.imageViewPoster);
+            this.botonDetalles = itemView.findViewById(R.id.buttonDetalles);}
     }
 
 
@@ -61,6 +64,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String urlPoster = urlPhoto + movie.getPoster_path();
         publicarImagen(urlPoster, holder);
 
+            holder.botonDetalles.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(contexto, PeliculaActivity.class);
+                    int idMovie = movie.getId();
+                    intent.putExtra("idMovie", idMovie);
+                    contexto.startActivity(intent);}
+            });
     }
 
     @Override

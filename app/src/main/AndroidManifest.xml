@@ -3,7 +3,7 @@
     package="com.example.proyectopersonal">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PeliculaActivity"></activity>
+        <activity android:name=".Detalles.ReviewDetallesActivity"></activity>
+        <activity android:name=".Detalles.EquipoDetallesActivity" />
+        <activity android:name=".Detalles.ActorDetallesActivity" />
+        <activity android:name=".ReviewActivity" />
+        <activity android:name=".GenreActivity" />
+        <activity android:name=".CrewActivity" />
+        <activity android:name=".CastActivity" />
+        <activity android:name=".PeliculasEstrenoActivity" />
+        <activity android:name=".PeliculasTopActivity" />
+        <activity android:name=".Detalles.PeliculaActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

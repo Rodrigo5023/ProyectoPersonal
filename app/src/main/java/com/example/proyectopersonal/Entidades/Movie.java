@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Movie {
 
     private String backdrop_path;
-    private ArrayList<Genero> listaGeneros;
+    private Genero[] listaGeneros;
     private int budget;
     private String homepage;
     private int id;
@@ -21,13 +21,7 @@ public class Movie {
     private String vote_count;
 
 
-    public ArrayList<Genero> getListaGeneros() {
-        return listaGeneros;
-    }
 
-    public void setListaGeneros(ArrayList<Genero> listaGeneros) {
-        this.listaGeneros = listaGeneros;
-    }
 
     public int getBudget() {
         return budget;
@@ -139,5 +133,13 @@ public class Movie {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public Genero[] getListaGeneros() {
+        return listaGeneros;
+    }
+
+    public void setListaGeneros(Genero[] listaGeneros) {
+        this.listaGeneros = listaGeneros;
     }
 }

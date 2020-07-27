@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PeliculaActivity">
+    tools:context=".Detalles.PeliculaActivity">
 
     <TextView
         android:id="@+id/textViewTitulo"
@@ -68,16 +68,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageViewPoster"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewVoluble"
-        android:layout_width="336dp"
-        android:layout_height="144dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView6"
@@ -148,28 +138,6 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/textView13"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Equipo De Trabajo"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="96dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="32dp"
-        android:text="Actores"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion" />
-
-    <TextView
         android:id="@+id/textViewDescripcion"
         android:layout_width="253dp"
         android:layout_height="77dp"
@@ -190,17 +158,6 @@
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewPoster" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="74dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        android:text="Genero"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,44 +31,47 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class PeliculasEstrenoActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_peliculas_estreno);
 
-        // PELICULAS MAS POPULARES
-        if(isInternetAvailable()) {
-            //https://api.themoviedb.org/3/movie/popular?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/popular?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
-            final RequestQueue queueMoviesPopulares = Volley.newRequestQueue(MainActivity.this);
+        // PELICULAS QUE SE VAN A ESTRENAR
+        if (isInternetAvailable()) {
+            //https://api.themoviedb.org/3/movie/upcoming?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/upcoming?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
+            final RequestQueue queueMoviesRateadas = Volley.newRequestQueue(PeliculasEstrenoActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             Gson gson = new Gson();
-                            Movie[] arrayMovies = gson.fromJson(response,Movie[].class);
-                            List<Movie> listMoviesPopulares = Arrays.asList(arrayMovies);
+                            Movie[] arrayMovies = gson.fromJson(response, Movie[].class);
+                            List<Movie> listMoviesEstrenos = Arrays.asList(arrayMovies);
 
-                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies,MainActivity.this);
+                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies, PeliculasEstrenoActivity.this);
                             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
                             recyclerView.setAdapter(movieAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasEstrenoActivity.this));
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(MainActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PeliculasEstrenoActivity.this, "Error: Rateadas", Toast.LENGTH_SHORT).show();
                         }
-                    }); queueMoviesPopulares.add(stringRequest); }
+                    });
+            queueMoviesRateadas.add(stringRequest);
+        }
+
     }
 
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
         return true;
@@ -78,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                startActivity(new Intent(PeliculasEstrenoActivity.this, MainActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
-                startActivity(new Intent(MainActivity.this, PeliculasTopActivity.class));
+                startActivity(new Intent(PeliculasEstrenoActivity.this, PeliculasTopActivity.class));
                 return true;
             case R.id.PeliculasEstreno:
-                startActivity(new Intent(MainActivity.this, PeliculasEstrenoActivity.class));
+                startActivity(new Intent(PeliculasEstrenoActivity.this, PeliculasEstrenoActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}
@@ -111,6 +114,4 @@ public class MainActivity extends AppCompatActivity {
             if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_ETHERNET) return true;
             return false; }
     }
-
-
 }

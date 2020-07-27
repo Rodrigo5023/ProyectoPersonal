@@ -31,20 +31,20 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class PeliculasTopActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_peliculas_top_acitivty);
 
-        // PELICULAS MAS POPULARES
+        // PELICULAS CON MAS RATING
         if(isInternetAvailable()) {
-            //https://api.themoviedb.org/3/movie/popular?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/popular?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
-            final RequestQueue queueMoviesPopulares = Volley.newRequestQueue(MainActivity.this);
+            //https://api.themoviedb.org/3/movie/top_rated?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/top_rated?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
+            final RequestQueue queueMoviesRateadas = Volley.newRequestQueue(PeliculasTopActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
@@ -52,23 +52,25 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(String response) {
                             Gson gson = new Gson();
                             Movie[] arrayMovies = gson.fromJson(response,Movie[].class);
-                            List<Movie> listMoviesPopulares = Arrays.asList(arrayMovies);
+                            List<Movie> listMoviesRateadas = Arrays.asList(arrayMovies);
 
-                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies,MainActivity.this);
+                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies,PeliculasTopActivity.this);
                             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
                             recyclerView.setAdapter(movieAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                            recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasTopActivity.this));
+
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(MainActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PeliculasTopActivity.this, "Error: Rateadas", Toast.LENGTH_SHORT).show();
                         }
-                    }); queueMoviesPopulares.add(stringRequest); }
+                    }); queueMoviesRateadas.add(stringRequest); }
+
     }
 
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
         return true;
@@ -78,17 +80,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                startActivity(new Intent(PeliculasTopActivity.this, MainActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
-                startActivity(new Intent(MainActivity.this, PeliculasTopActivity.class));
+                startActivity(new Intent(PeliculasTopActivity.this, PeliculasTopActivity.class));
                 return true;
             case R.id.PeliculasEstreno:
-                startActivity(new Intent(MainActivity.this, PeliculasEstrenoActivity.class));
+                startActivity(new Intent(PeliculasTopActivity.this, PeliculasEstrenoActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}
-
 
     public boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -111,6 +112,5 @@ public class MainActivity extends AppCompatActivity {
             if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_ETHERNET) return true;
             return false; }
     }
-
 
 }
