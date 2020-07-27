@@ -41,8 +41,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
     @Override
     public void onBindViewHolder(CastViewHolder holder, int position) {
         final Cast actor = listaActores[position];
-        final String nombreActor = actor.getNombre(); holder.nombreActor.setText(nombreActor);
-        final String nombrePersonaje = actor.getPersonaje(); holder.nombrePersonaje.setText(nombrePersonaje);
+        final String nombreActor = actor.getName(); holder.nombreActor.setText(nombreActor);
+        final String nombrePersonaje = actor.getCharacter(); holder.nombrePersonaje.setText(nombrePersonaje);
         // Agregar Boton -> RECOMENDACIONES POR ACTOR
     }
 

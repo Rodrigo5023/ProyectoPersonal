@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 public class Movie {
 
-    private ArrayList<Genero> listaGeneros;
-    private ArrayList<Cast> listaCast;
 
+    private ArrayList<Genero> listaGeneros;
+    private int budget;
+    private String homepage;
     private int id;
-    private String titulo;
-    private String descripcion;
-    private String lenguajeOriginal;
-    private String popularidad;
-    private String poster;
-    private String fechaEstreno;
-    private String duracion;
-    private String fraseRepresentativa;
-    private String promedioVotos;
-    private String cantidadVotos;
+    private String original_language;
+    private String original_title;
+    private String poster_path;
+    private String release_date;
+    private int runtime;
+    private String status;
+    private String tagline;
+    private String vote_average;
+    private String vote_count;
+
 
     public ArrayList<Genero> getListaGeneros() {
         return listaGeneros;
@@ -27,12 +28,20 @@ public class Movie {
         this.listaGeneros = listaGeneros;
     }
 
-    public ArrayList<Cast> getListaCast() {
-        return listaCast;
+    public int getBudget() {
+        return budget;
     }
 
-    public void setListaCast(ArrayList<Cast> listaCast) {
-        this.listaCast = listaCast;
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
     }
 
     public int getId() {
@@ -43,83 +52,75 @@ public class Movie {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getOriginal_language() {
+        return original_language;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getOriginal_title() {
+        return original_title;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
     }
 
-    public String getLenguajeOriginal() {
-        return lenguajeOriginal;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setLenguajeOriginal(String lenguajeOriginal) {
-        this.lenguajeOriginal = lenguajeOriginal;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
-    public String getPopularidad() {
-        return popularidad;
+    public String getRelease_date() {
+        return release_date;
     }
 
-    public void setPopularidad(String popularidad) {
-        this.popularidad = popularidad;
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
-    public String getPoster() {
-        return poster;
+    public int getRuntime() {
+        return runtime;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 
-    public String getFechaEstreno() {
-        return fechaEstreno;
+    public String getStatus() {
+        return status;
     }
 
-    public void setFechaEstreno(String fechaEstreno) {
-        this.fechaEstreno = fechaEstreno;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getDuracion() {
-        return duracion;
+    public String getTagline() {
+        return tagline;
     }
 
-    public void setDuracion(String duracion) {
-        this.duracion = duracion;
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
     }
 
-    public String getFraseRepresentativa() {
-        return fraseRepresentativa;
+    public String getVote_average() {
+        return vote_average;
     }
 
-    public void setFraseRepresentativa(String fraseRepresentativa) {
-        this.fraseRepresentativa = fraseRepresentativa;
+    public void setVote_average(String vote_average) {
+        this.vote_average = vote_average;
     }
 
-    public String getPromedioVotos() {
-        return promedioVotos;
+    public String getVote_count() {
+        return vote_count;
     }
 
-    public void setPromedioVotos(String promedioVotos) {
-        this.promedioVotos = promedioVotos;
-    }
-
-    public String getCantidadVotos() {
-        return cantidadVotos;
-    }
-
-    public void setCantidadVotos(String cantidadVotos) {
-        this.cantidadVotos = cantidadVotos;
+    public void setVote_count(String vote_count) {
+        this.vote_count = vote_count;
     }
 }

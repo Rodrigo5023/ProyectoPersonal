@@ -40,7 +40,7 @@ public class GeneroAdapter extends RecyclerView.Adapter<GeneroAdapter.GeneroView
     @Override
     public void onBindViewHolder(GeneroViewHolder holder, int position) {
         final Genero genero = listaGenero[position];
-        final String nombreGenero = genero.getNombreGenero(); holder.nombreGenero.setText(nombreGenero);
+        final String nombreGenero = genero.getName(); holder.nombreGenero.setText(nombreGenero);
         // Agregar Boton -> RECOMENDACIONES GENERO
     }
 

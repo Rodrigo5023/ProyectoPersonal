@@ -45,9 +45,9 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
     @Override
     public void onBindViewHolder(CrewViewHolder holder, int position) {
         final Crew crew = listaCrew[position];
-        final String nombreCrew  = crew.getNombre(); holder.nombreCrew.setText(nombreCrew);
-        final String departamento = crew.getDepartamento(); holder.departamento.setText(departamento);
-        final String trabajo = crew.getTrabajo(); holder.trabajo.setText(trabajo);
+        final String nombreCrew  = crew.getName(); holder.nombreCrew.setText(nombreCrew);
+        final String departamento = crew.getDepartment(); holder.departamento.setText(departamento);
+        final String trabajo = crew.getJob(); holder.trabajo.setText(trabajo);
         if (trabajo.equals("director")) { // Agregar RECOMENDACIONES POR DIRECTOR
         }
     }

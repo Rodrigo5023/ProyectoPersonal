@@ -3,10 +3,14 @@ package com.example.proyectopersonal.Entidades;
 public class Cast {
 
     private int cast_id;
-    private String personaje;
-    private String nombre;
-    private String genero;
-    private String foto;
+    private String character;
+    private String credit_id;
+    private int gender;
+    private int id;
+    private String name;
+    private int order;
+    private String profile_path;
+
 
     public int getCast_id() {
         return cast_id;
@@ -16,35 +20,59 @@ public class Cast {
         this.cast_id = cast_id;
     }
 
-    public String getPersonaje() {
-        return personaje;
+    public String getCharacter() {
+        return character;
     }
 
-    public void setPersonaje(String personaje) {
-        this.personaje = personaje;
+    public void setCharacter(String character) {
+        this.character = character;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCredit_id() {
+        return credit_id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCredit_id(String credit_id) {
+        this.credit_id = credit_id;
     }
 
-    public String getGenero() {
-        return genero;
+    public int getGender() {
+        return gender;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
-    public String getFoto() {
-        return foto;
+    public int getId() {
+        return id;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public String getProfile_path() {
+        return profile_path;
+    }
+
+    public void setProfile_path(String profile_path) {
+        this.profile_path = profile_path;
     }
 }
