@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RecomendacionesActivity"></activity>
         <activity android:name=".Detalles.EquipoDetallesActivity" />
         <activity android:name=".Detalles.ActorDetallesActivity" />
         <activity android:name=".ReviewActivity" />

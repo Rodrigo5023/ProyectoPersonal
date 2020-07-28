@@ -5,12 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.GenreActivity;
 import com.example.proyectopersonal.MovieDB;
 import com.example.proyectopersonal.R;
+import com.example.proyectopersonal.RecomendacionesActivity;
 import com.google.gson.Gson;
 
 public class PeliculaActivity extends AppCompatActivity {
@@ -75,6 +79,15 @@ public class PeliculaActivity extends AppCompatActivity {
                     recyclerView.setAdapter(movieAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(PeliculaActivity.this));
 
+                    Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
+                    botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
+                            intent.putExtra("idMovie", idPelicula);
+                            startActivity(intent);
+                        }
+                    });
                 }
             },
                     new Response.ErrorListener() {
