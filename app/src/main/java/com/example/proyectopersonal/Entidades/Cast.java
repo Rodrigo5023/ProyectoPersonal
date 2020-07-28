@@ -10,6 +10,7 @@ public class Cast {
     private String name;
     private int order;
     private String profile_path;
+    private String biography;
 
 
     public int getCast_id() {
@@ -74,5 +75,13 @@ public class Cast {
 
     public void setProfile_path(String profile_path) {
         this.profile_path = profile_path;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 }

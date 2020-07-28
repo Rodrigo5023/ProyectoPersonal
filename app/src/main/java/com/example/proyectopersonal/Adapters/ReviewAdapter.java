@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             this.autorReview =itemView.findViewById(R.id.textViewAutor);
-            this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario);}
+            this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario); }
     }
 
     @NonNull

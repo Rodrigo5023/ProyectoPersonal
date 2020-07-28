@@ -23,10 +23,13 @@ public class GeneroAdapter extends RecyclerView.Adapter<GeneroAdapter.GeneroView
 
     public static class GeneroViewHolder extends RecyclerView.ViewHolder {
         public TextView nombreGenero;
+        //public Button botonVerMas;
 
         public GeneroViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.nombreGenero =itemView.findViewById(R.id.textViewGenero); }
+            this.nombreGenero =itemView.findViewById(R.id.textViewGenero);
+            // this.botonVerMas = itemView.findViewById(R.id.buttonGenero);
+        }
     }
 
     @NonNull
@@ -41,7 +44,16 @@ public class GeneroAdapter extends RecyclerView.Adapter<GeneroAdapter.GeneroView
     public void onBindViewHolder(GeneroViewHolder holder, int position) {
         final Genero genero = listaGenero[position];
         final String nombreGenero = genero.getName(); holder.nombreGenero.setText(nombreGenero);
-        // Agregar Boton -> RECOMENDACIONES GENERO
+
+
+        /* holder.botonVerMas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(contexto, GeneroDetallesActivity.class);
+                int idGenero = genero.getId();
+                intent.putExtra("idGenero", idGenero);
+                contexto.startActivity(intent);}
+        }); */
     }
 
     @Override

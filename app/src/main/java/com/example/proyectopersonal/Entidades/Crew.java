@@ -9,6 +9,8 @@ public class Crew {
     private String job;
     private String name;
     private String profile_path;
+    private String biography;
+
 
 
     public String getCredit_id() {
@@ -65,5 +67,13 @@ public class Crew {
 
     public void setProfile_path(String profile_path) {
         this.profile_path = profile_path;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 }

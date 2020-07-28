@@ -1,16 +1,18 @@
 package com.example.proyectopersonal.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.accessibility.AccessibilityRecord;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyectopersonal.Entidades.Cast;
+import com.example.proyectopersonal.Detalles.ActorDetallesActivity;
+import com.example.proyectopersonal.Detalles.EquipoDetallesActivity;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.R;
 
@@ -27,12 +29,15 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
         public TextView nombreCrew;
         public TextView departamento;
         public TextView trabajo;
+        public Button botonVerMas;
 
         public CrewViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.nombreCrew =itemView.findViewById(R.id.textViewNombre);
+            this.nombreCrew =itemView.findViewById(R.id.textViewNombreActor);
             this.departamento = itemView.findViewById(R.id.textViewDepartamento);
-            this.trabajo = itemView.findViewById(R.id.textViewTrabajo);}
+            this.trabajo = itemView.findViewById(R.id.textViewTrabajo);
+            this.botonVerMas = itemView.findViewById(R.id.buttonDirector);
+        }
     }
 
     @NonNull
@@ -48,9 +53,20 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
         final String nombreCrew  = crew.getName(); holder.nombreCrew.setText(nombreCrew);
         final String departamento = crew.getDepartment(); holder.departamento.setText(departamento);
         final String trabajo = crew.getJob(); holder.trabajo.setText(trabajo);
-        if (trabajo.equals("director")) { // Agregar RECOMENDACIONES POR DIRECTOR
+
+        holder.botonVerMas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(contexto, EquipoDetallesActivity.class);
+                int idDirector = crew.getId();
+                intent.putExtra("idDirector", idDirector);
+                contexto.startActivity(intent);}
+        });
+
+
+
         }
-    }
+
 
     @Override
     public int getItemCount() {

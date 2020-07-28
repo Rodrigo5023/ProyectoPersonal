@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewNombre"
+        android:id="@+id/textViewNombreActor"
         android:layout_width="151dp"
         android:layout_height="40dp"
         android:layout_marginTop="36dp"

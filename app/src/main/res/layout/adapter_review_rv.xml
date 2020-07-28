@@ -10,10 +10,10 @@
         android:id="@+id/textViewCuerpoComentario"
         android:layout_width="314dp"
         android:layout_height="84dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="88dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

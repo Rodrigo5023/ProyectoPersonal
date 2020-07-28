@@ -1,6 +1,8 @@
 package com.example.proyectopersonal.Detalles;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -20,10 +22,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.proyectopersonal.Adapters.GeneroAdapter;
+import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Genero;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.example.proyectopersonal.GenreActivity;
 import com.example.proyectopersonal.MovieDB;
 import com.example.proyectopersonal.R;
 import com.google.gson.Gson;
@@ -31,8 +36,7 @@ import com.google.gson.Gson;
 public class PeliculaActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
-    Movie movie = new Movie(); Genero genero = new Genero();
-    Cast cast = new Cast(); Crew crew = new Crew();
+
 
 
     @Override
@@ -53,6 +57,24 @@ public class PeliculaActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                   Gson gson = new Gson();
                   Movie movie = gson.fromJson(response,Movie.class);
+
+                    TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getOriginal_title());
+                    TextView movieEstreno = (TextView) findViewById(R.id.textViewEstreno); movieEstreno.setText(movie.getRelease_date());
+                    TextView movieTime = (TextView) findViewById(R.id.textViewDuracion); movieTime.setText(movie.getRuntime());
+                    TextView movieRate = (TextView) findViewById(R.id.textViewRate); movieRate.setText(movie.getVote_average());
+                    TextView movieFrase = (TextView) findViewById(R.id.textViewFrase); movieFrase.setText(movie.getTagline());
+                    TextView movieOverview = (TextView) findViewById(R.id.textViewOverview); movieOverview.setText(movie.getOverview());
+
+                    ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster); String poster = movie.getPoster_path();
+                    String urlPoster = movieDB.getUrlPhoto() + poster;
+                    Glide.with(PeliculaActivity.this).load(urlPoster).into(moviePoster);
+
+                    Genero[] listaGeneros = movie.getListaGeneros();
+                    final GeneroAdapter movieAdapter = new GeneroAdapter(listaGeneros, PeliculaActivity.this);
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
+                    recyclerView.setAdapter(movieAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(PeliculaActivity.this));
+
                 }
             },
                     new Response.ErrorListener() {
@@ -61,21 +83,14 @@ public class PeliculaActivity extends AppCompatActivity {
                     Toast.makeText(PeliculaActivity.this, "Error:Movie", Toast.LENGTH_SHORT).show();
                 }
             }); queueMovies.add(stringRequest);
-
-            TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getOriginal_title());
-            TextView movieEstreno = (TextView) findViewById(R.id.textViewEstreno); movieEstreno.setText(movie.getRelease_date());
-            TextView movieTime = (TextView) findViewById(R.id.textViewDuracion); movieTime.setText(movie.getRuntime());
-            TextView movieRate = (TextView) findViewById(R.id.textViewRate); movieRate.setText(movie.getVote_average());
-            TextView movieFrase = (TextView) findViewById(R.id.textViewFrase); movieFrase.setText(movie.getTagline());
-            TextView movieOverview = (TextView) findViewById(R.id.textViewOverview); movieOverview.setText(movie.getOverview());
-
-            ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster); String poster = movie.getPoster_path();
-            String urlPoster = movieDB.getUrlPhoto() + poster;
-            Glide.with(PeliculaActivity.this).load(urlPoster).into(moviePoster);
-
         }
 
+
+
     }
+
+
+
 
 
 
