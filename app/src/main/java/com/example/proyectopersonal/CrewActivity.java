@@ -5,12 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,19 +28,27 @@ import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class CrewActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
+    Crew[] listaCrew;
+    int x;
+    String idPelicula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crew);
 
-        final String idPelicula = getIntent().getStringExtra("idMovie");
+       idPelicula = getIntent().getStringExtra("idMovie");
 
         // METODO EQUIPO DE LA PELICULA
         if (isInternetAvailable()) {
@@ -46,16 +57,38 @@ public class CrewActivity extends AppCompatActivity {
             final RequestQueue queueCastAndCrew = Volley.newRequestQueue(CrewActivity.this);
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlActores,
                     new Response.Listener<String>() {
+
                         @Override
                         public void onResponse(String response) {
-                            Gson gson = new Gson();
-                            Crew[] arrayEquipo = gson.fromJson(response, Crew[].class);
-                            List<Crew> listaEquipo = Arrays.asList(arrayEquipo);
 
-                            final CrewAdapter crewAdapter = new CrewAdapter(arrayEquipo, CrewActivity.this);
-                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewCrew);
-                            recyclerView.setAdapter(crewAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(CrewActivity.this));
+                            try { JSONObject jsonObject = new JSONObject(response);
+                                JSONArray casting = (JSONArray) jsonObject.get("crew");
+                                int tamañoLista = casting.length();
+                                listaCrew = new Crew[tamañoLista];
+
+                                for ( int x=0; x<tamañoLista; x++){
+                                    Crew director = new Crew();
+                                    JSONObject crew = (JSONObject) casting.get(x);
+                                    String credit_id = crew.getString("credit_id"); director.setCredit_id(credit_id);
+                                    String department = crew.getString("department"); director.setDepartment(department);
+                                    String id = crew.getString("id"); director.setId(Integer.valueOf(id));
+                                    String job = crew.getString("job"); director.setJob(job);
+                                    String name = crew.getString("name"); director.setName(name);
+                                    String profile_path = crew.getString("profile_path"); director.setProfile_path(profile_path);
+                                    listaCrew[x] = director;
+
+                                }
+
+                                final CrewAdapter crewAdapter = new CrewAdapter(listaCrew,CrewActivity.this);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewCrew);
+                                recyclerView.setAdapter(crewAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(CrewActivity.this));
+
+
+                            }
+
+                            catch (JSONException e) { e.printStackTrace(); }
+
 
                         }
                     },
@@ -72,6 +105,32 @@ public class CrewActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pantallamovie, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.PeliculaActores:
+                Intent intent1 = new Intent(CrewActivity.this, CastActivity.class);
+                intent1.putExtra("idMovie", idPelicula); startActivity(intent1);
+                return true;
+            case R.id.PeliculaDirector:
+                Intent intent2 = new Intent(CrewActivity.this, CrewActivity.class);
+                intent2.putExtra("idMovie", idPelicula); startActivity(intent2);
+                return true;
+            case R.id.PeliculaRecomendaciones:
+                Intent intent3 = new Intent(CrewActivity.this, RecomendacionesActivity.class);
+                intent3.putExtra("idMovie", idPelicula); startActivity(intent3);
+                return true;
+            case R.id.PeliculaReviews:
+                Intent intent4 = new Intent(CrewActivity.this, ReviewActivity.class);
+                intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
+                return true;
+        }
+        return onOptionsItemSelected(item);}
 
 
 

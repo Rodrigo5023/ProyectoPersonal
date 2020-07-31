@@ -29,7 +29,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.autorReview =itemView.findViewById(R.id.textViewAutor);
+            this.autorReview =itemView.findViewById(R.id.textViewAutorComentario);
             this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario); }
     }
 

@@ -19,7 +19,7 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/textViewNombreActor"
+        android:id="@+id/textViewNombreEquipo"
         android:layout_width="140dp"
         android:layout_height="55dp"
         android:layout_marginTop="36dp"

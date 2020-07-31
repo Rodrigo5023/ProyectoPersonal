@@ -33,7 +33,7 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
 
         public CrewViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.nombreCrew =itemView.findViewById(R.id.textViewNombreActor);
+            this.nombreCrew =itemView.findViewById(R.id.textViewNombreEquipo);
             this.departamento = itemView.findViewById(R.id.textViewDepartamento);
             this.trabajo = itemView.findViewById(R.id.textViewTrabajo);
             this.botonVerMas = itemView.findViewById(R.id.buttonDirector);

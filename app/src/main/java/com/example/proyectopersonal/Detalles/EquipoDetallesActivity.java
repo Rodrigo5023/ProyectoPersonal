@@ -15,20 +15,32 @@ import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.example.proyectopersonal.MainActivity;
 import com.example.proyectopersonal.MovieDB;
+import com.example.proyectopersonal.PeliculasEstrenoActivity;
+import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,6 +49,8 @@ import java.util.List;
 public class EquipoDetallesActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
+    Movie[] listaMovies;
+    int x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +71,16 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Gson gson = new Gson();
-                            Crew crew = gson.fromJson(response,Crew.class);
+                            Cast actor = gson.fromJson(response,Cast.class);
 
-                            TextView nombreEquipo = (TextView) findViewById(R.id.textViewNombreEquipo); nombreEquipo.setText(crew.getName());
-                            TextView biografiaEquipo = (TextView) findViewById(R.id.textViewbBiography); biografiaEquipo.setText(crew.getBiography());
-                            ImageView fotoEquipo = (ImageView) findViewById(R.id.imageViewFotoActor); String poster = crew.getProfile_path();
+                            TextView nombreActor = (TextView) findViewById(R.id.textViewNombreEquipo); nombreActor.setText(actor.getName());
+                            TextView biografiaActor = (TextView) findViewById(R.id.textViewbBiography); biografiaActor.setText(actor.getBiography());
+                            ImageView fotoActor = (ImageView) findViewById(R.id.imageViewFotoEquipo); String poster = actor.getProfile_path();
                             String urlPoster = movieDB.getUrlPhoto() + poster;
                             String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
-                            if (poster != null){ Glide.with(EquipoDetallesActivity.this).load(urlPoster).into(fotoEquipo);}
-                            else { Glide.with(EquipoDetallesActivity.this).load(urlNull).into(fotoEquipo);}
+                            if (poster != null) { Glide.with(EquipoDetallesActivity.this).load(urlPoster).into(fotoActor);}
+                            else { Glide.with(EquipoDetallesActivity.this).load(urlNull).into(fotoActor);}
+
                         }
                     },
                     new Response.ErrorListener() {
@@ -87,19 +102,46 @@ public class EquipoDetallesActivity extends AppCompatActivity {
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
+
                         @Override
                         public void onResponse(String response) {
-                            Gson gson = new Gson();
-                            Movie[] arrayMovies = gson.fromJson(response,Movie[].class);
-                            List<Movie> listaMovies = Arrays.asList(arrayMovies);
 
-                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies, EquipoDetallesActivity.this);
-                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
-                            recyclerView.setAdapter(movieAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(EquipoDetallesActivity.this));
+                            try { JSONObject jsonObject = new JSONObject(response);
+                                JSONArray cast = (JSONArray) jsonObject.get("cast");
+                                int tamañoLista = cast.length();
+                                listaMovies = new Movie[tamañoLista];
 
-                            TextView cantidadMovies = (TextView) findViewById(R.id.textViewCantidadEquipo);
-                            int tamañoLista = arrayMovies.length; cantidadMovies.setText(tamañoLista);
+                                TextView cantidadMovies = (TextView) findViewById(R.id.textViewCantidadEquipo);
+                                cantidadMovies.setText(tamañoLista);
+
+                                for ( int x=0; x<tamañoLista; x++){
+                                    Movie movie = new Movie();
+                                    JSONObject pelicula = (JSONObject) cast.get(x);
+                                    String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
+                                    Log.d("PeliculaID",  idMovie);
+                                    String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
+                                    Log.d("PeliculaTítulo",  tituloMovie);
+                                    String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
+                                    String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
+                                    String lenguajeMovie = pelicula.getString("original_language"); movie.setOriginal_language(lenguajeMovie);
+                                    // String duracionMovie = pelicula.getString("runtime"); movie.setRuntime(Integer.valueOf(duracionMovie));
+                                    String estrenoMovie = pelicula.getString("release_date"); movie.setRelease_date(estrenoMovie);
+                                    String puntuacionMovie = pelicula.getString("vote_average"); movie.setVote_average(puntuacionMovie);
+                                    String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
+                                    //String fraseMovie = pelicula.getString("tagline"); movie.setTagline(fraseMovie);
+                                    listaMovies[x] = movie;
+                                }
+
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, EquipoDetallesActivity.this);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
+                                recyclerView.setAdapter(movieAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(EquipoDetallesActivity.this));
+
+
+                            }
+
+                            catch (JSONException e) { e.printStackTrace(); }
+
 
                         }
                     },
@@ -113,6 +155,26 @@ public class EquipoDetallesActivity extends AppCompatActivity {
 
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.PeliculasPopulares:
+                startActivity(new Intent(EquipoDetallesActivity.this, MainActivity.class));
+                return true;
+            case R.id.PeliculasRateadas:
+                startActivity(new Intent(EquipoDetallesActivity.this, PeliculasTopActivity.class));
+                return true;
+            case R.id.PeliculasEstreno:
+                startActivity(new Intent(EquipoDetallesActivity.this, PeliculasEstrenoActivity.class));
+                return true;
+        }
+        return onOptionsItemSelected(item);}
 
 
     public boolean isInternetAvailable() {

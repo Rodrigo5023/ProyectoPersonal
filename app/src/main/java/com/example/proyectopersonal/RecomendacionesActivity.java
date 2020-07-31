@@ -12,6 +12,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,6 +28,9 @@ import com.example.proyectopersonal.Entidades.Movie;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +38,8 @@ import java.util.List;
 public class RecomendacionesActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
+    Movie[] listaMovies;
+    int x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +56,43 @@ public class RecomendacionesActivity extends AppCompatActivity {
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
+
                         @Override
                         public void onResponse(String response) {
-                            Gson gson = new Gson();
-                            Movie[] arrayMovies = gson.fromJson(response,Movie[].class);
-                            List<Movie> listMoviesRateadas = Arrays.asList(arrayMovies);
 
-                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies,RecomendacionesActivity.this);
-                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewRecomendaciones);
-                            recyclerView.setAdapter(movieAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(RecomendacionesActivity.this));
+                            try { JSONObject jsonObject = new JSONObject(response);
+                                JSONArray results = (JSONArray) jsonObject.get("results");
+                                int tamañoLista = results.length();
+                                listaMovies = new Movie[tamañoLista];
+
+                                for ( int x=0; x<tamañoLista; x++){
+                                    Movie movie = new Movie();
+                                    JSONObject pelicula = (JSONObject) results.get(x);
+                                    String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
+                                    Log.d("PeliculaID",  idMovie);
+                                    String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
+                                    Log.d("PeliculaTítulo",  tituloMovie);
+                                    String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
+                                    String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
+                                    String lenguajeMovie = pelicula.getString("original_language"); movie.setOriginal_language(lenguajeMovie);
+                                    // String duracionMovie = pelicula.getString("runtime"); movie.setRuntime(Integer.valueOf(duracionMovie));
+                                    String estrenoMovie = pelicula.getString("release_date"); movie.setRelease_date(estrenoMovie);
+                                    String puntuacionMovie = pelicula.getString("vote_average"); movie.setVote_average(puntuacionMovie);
+                                    String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
+                                    //String fraseMovie = pelicula.getString("tagline"); movie.setTagline(fraseMovie);
+                                    listaMovies[x] = movie;
+                                }
+
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,RecomendacionesActivity.this);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+                                recyclerView.setAdapter(movieAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(RecomendacionesActivity.this));
+
+
+                            }
+
+                            catch (JSONException e) { e.printStackTrace(); }
+
 
                         }
                     },

@@ -38,7 +38,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.nombreMovie =itemView.findViewById(R.id.textViewNombreActor);
+            this.nombreMovie =itemView.findViewById(R.id.textViewAutor);
             this.overviewMovie = itemView.findViewById(R.id.textViewOverview);
             this.fechaEstrenoMovie = itemView.findViewById(R.id.textViewEstreno);
             this.rateMovie = itemView.findViewById(R.id.textViewRate);

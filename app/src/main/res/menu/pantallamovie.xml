@@ -5,20 +5,26 @@
     <item
         android:id="@+id/PeliculaActores"
         android:icon="@drawable/ic_poplares"
-        android:title="Item"
-        app:showAsAction="ifRoom" />
+        android:title="Actores"
+        app:showAsAction="withText" />
 
 
     <item
         android:id="@+id/PeliculaDirector"
         android:icon="@drawable/ic_cien"
-        android:title="Item"
-        app:showAsAction="ifRoom" />
+        android:title="Equipo de Trabajo"
+        app:showAsAction="withText" />
 
     <item
-        android:id="@+id/PeliculaGenero"
+        android:id="@+id/PeliculaRecomendaciones"
         android:icon="@drawable/ic_action_name"
-        android:title="Item"
-        app:showAsAction="ifRoom" />
+        android:title="Recomendaciones"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/PeliculaReviews"
+        android:icon="@drawable/ic_action_name"
+        android:title="Reviews"
+        app:showAsAction="withText" />
 
 </menu>

@@ -12,6 +12,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -52,56 +53,59 @@ public class MainActivity extends AppCompatActivity {
         if(isInternetAvailable()) {
             //https://api.themoviedb.org/3/movie/popular?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
             String urlPelicula = movieDB.getUrlMovieDB() + "movie/popular?api_key=" + movieDB.getApiKey() + "&language=es-ES";
+            RequestQueue queueMoviesPopulares = Volley.newRequestQueue(MainActivity.this);
 
+            StringRequest stringRequest = new StringRequest(StringRequest.Method.GET, urlPelicula,
+                    new Response.Listener<String>() {
 
+                @Override
+                public void onResponse(String response) {
 
-            StringRequest stringRequest = new StringRequest(StringRequest.Method.GET, urlPelicula, new Response.Listener<String>() {
+                    try { JSONObject jsonObject = new JSONObject(response);
+                        JSONArray results = (JSONArray) jsonObject.get("results");
+                        int tamañoLista = results.length();
+                        listaMovies = new Movie[tamañoLista];
 
-                        @Override
-                        public void onResponse(String response) {
-
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                JSONArray results = (JSONArray) jsonObject.get("results");
-                                int tamañoLista = results.length();
-                                listaMovies = new Movie[tamañoLista];
-
-                                for ( int x=0; x<tamañoLista; x++){
-                                    Movie movie = new Movie();
-                                    JSONObject pelicula = (JSONObject) results.get(x);
-                                    String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
-                                    String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
-                                    String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
-                                    String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
-                                    String lenguajeMovie = pelicula.getString("original_language"); movie.setOriginal_language(lenguajeMovie);
-                                    // String duracionMovie = pelicula.getString("runtime"); movie.setRuntime(Integer.valueOf(duracionMovie));
-                                    String estrenoMovie = pelicula.getString("release_date"); movie.setRelease_date(estrenoMovie);
-                                    String puntuacionMovie = pelicula.getString("vote_average"); movie.setVote_average(puntuacionMovie);
-                                    String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
-                                    //String fraseMovie = pelicula.getString("tagline"); movie.setTagline(fraseMovie);
-                                    listaMovies[x] = movie;
-                                }
-                            }
-
-                            catch (JSONException e) { e.printStackTrace(); }
-
-                            final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,MainActivity.this);
-                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
-                            recyclerView.setAdapter(movieAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                        for ( int x=0; x<tamañoLista; x++){
+                            Movie movie = new Movie();
+                            JSONObject pelicula = (JSONObject) results.get(x);
+                            String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
+                            Log.d("PeliculaID",  idMovie);
+                            String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
+                            Log.d("PeliculaTítulo",  tituloMovie);
+                            String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
+                            String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
+                            String lenguajeMovie = pelicula.getString("original_language"); movie.setOriginal_language(lenguajeMovie);
+                            // String duracionMovie = pelicula.getString("runtime"); movie.setRuntime(Integer.valueOf(duracionMovie));
+                            String estrenoMovie = pelicula.getString("release_date"); movie.setRelease_date(estrenoMovie);
+                            String puntuacionMovie = pelicula.getString("vote_average"); movie.setVote_average(puntuacionMovie);
+                            String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
+                            //String fraseMovie = pelicula.getString("tagline"); movie.setTagline(fraseMovie);
+                            listaMovies[x] = movie;
                         }
-                    },
+
+                        final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,MainActivity.this);
+                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+                        recyclerView.setAdapter(movieAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+
+                    }
+
+                    catch (JSONException e) { e.printStackTrace(); }
+
+
+                }
+            },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(MainActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
                         }
                     });
-            RequestQueue queueMoviesPopulares = Volley.newRequestQueue(MainActivity.this);
+
             queueMoviesPopulares.add(stringRequest);
-
-
-             }
+        }
     }
 
 

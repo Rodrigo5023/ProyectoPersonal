@@ -5,20 +5,20 @@
   <item
       android:id="@+id/PeliculasPopulares"
       android:icon="@drawable/ic_poplares"
-      android:title="Item"
-      app:showAsAction="ifRoom" />
+      android:title="Películas Populares"
+      app:showAsAction="withText" />
 
 
   <item
       android:id="@+id/PeliculasRateadas"
       android:icon="@drawable/ic_cien"
-      android:title="Item"
-      app:showAsAction="ifRoom" />
+      android:title="Películas Top"
+      app:showAsAction="withText" />
 
   <item
       android:id="@+id/PeliculasEstreno"
       android:icon="@drawable/ic_action_name"
-      android:title="Item"
-      app:showAsAction="ifRoom" />
+      android:title="Películas Estreno"
+      app:showAsAction="withText" />
 
 </menu>

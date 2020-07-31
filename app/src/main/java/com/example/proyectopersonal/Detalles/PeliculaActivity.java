@@ -12,6 +12,8 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,20 +29,33 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Adapters.GeneroAdapter;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
+import com.example.proyectopersonal.CastActivity;
+import com.example.proyectopersonal.CrewActivity;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Genero;
 import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.GenreActivity;
+import com.example.proyectopersonal.MainActivity;
 import com.example.proyectopersonal.MovieDB;
+import com.example.proyectopersonal.PeliculasEstrenoActivity;
+import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.example.proyectopersonal.RecomendacionesActivity;
+import com.example.proyectopersonal.ReviewActivity;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PeliculaActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
-
+    Genero[] listaGeneros;
+    String idPelicula;
 
 
     @Override
@@ -48,7 +63,7 @@ public class PeliculaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pelicula);
 
-        final String idPelicula = getIntent().getStringExtra("idMovie");
+       idPelicula = getIntent().getStringExtra("idMovie");
 
         // METODO DETALLES DE LA PELICULA
         if(isInternetAvailable()) {
@@ -62,22 +77,35 @@ public class PeliculaActivity extends AppCompatActivity {
                   Gson gson = new Gson();
                   Movie movie = gson.fromJson(response,Movie.class);
 
+                    // Revisar los nombres de los TextViews
                     TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getOriginal_title());
-                    TextView movieEstreno = (TextView) findViewById(R.id.textViewEstreno); movieEstreno.setText(movie.getRelease_date());
+                    TextView movieEstreno = (TextView) findViewById(R.id.textView5); movieEstreno.setText(movie.getRelease_date());
                     TextView movieTime = (TextView) findViewById(R.id.textViewDuracion); movieTime.setText(movie.getRuntime());
-                    TextView movieRate = (TextView) findViewById(R.id.textViewRate); movieRate.setText(movie.getVote_average());
+                    TextView movieRate = (TextView) findViewById(R.id.textViewPopulaaridad); movieRate.setText(movie.getVote_average());
                     TextView movieFrase = (TextView) findViewById(R.id.textViewFrase); movieFrase.setText(movie.getTagline());
-                    TextView movieOverview = (TextView) findViewById(R.id.textViewOverview); movieOverview.setText(movie.getOverview());
+                    TextView movieOverview = (TextView) findViewById(R.id.textViewDescripcion); movieOverview.setText(movie.getOverview());
 
                     ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster); String poster = movie.getPoster_path();
                     String urlPoster = movieDB.getUrlPhoto() + poster;
                     Glide.with(PeliculaActivity.this).load(urlPoster).into(moviePoster);
 
-                    Genero[] listaGeneros = movie.getListaGeneros();
-                    final GeneroAdapter movieAdapter = new GeneroAdapter(listaGeneros, PeliculaActivity.this);
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
-                    recyclerView.setAdapter(movieAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(PeliculaActivity.this));
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        JSONArray generos = (JSONArray) jsonObject.get("genres");
+                        int tamañoLista = generos.length();
+                        listaGeneros = new Genero[tamañoLista];
+                        for ( int x=0; x<tamañoLista; x++){
+                            Genero genero = new Genero();
+                            JSONObject genres = (JSONObject) generos.get(x);
+                            String idMovie = genres.getString("id"); genero.setId(Integer.valueOf(idMovie));
+                            String nombre = genres.getString("name"); genero.setName(nombre);
+                            listaGeneros[x] = genero; }
+                        final GeneroAdapter generoAdapter = new GeneroAdapter(listaGeneros, PeliculaActivity.this);
+                        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
+                        recyclerView.setAdapter(generoAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(PeliculaActivity.this));
+
+                    } catch (JSONException e) { e.printStackTrace(); }
 
                     Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
                     botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
@@ -102,13 +130,32 @@ public class PeliculaActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pantallamovie, menu);
+        return true;
+    }
 
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
 
-
-
-
-
-
+        switch (item.getItemId()) {
+            case R.id.PeliculaActores:
+                Intent intent1 = new Intent(PeliculaActivity.this, CastActivity.class);
+                intent1.putExtra("idMovie", idPelicula); startActivity(intent1);
+                return true;
+            case R.id.PeliculaDirector:
+                Intent intent2 = new Intent(PeliculaActivity.this, CrewActivity.class);
+                intent2.putExtra("idMovie", idPelicula); startActivity(intent2);
+                return true;
+            case R.id.PeliculaRecomendaciones:
+                Intent intent3 = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
+                intent3.putExtra("idMovie", idPelicula); startActivity(intent3);
+                return true;
+            case R.id.PeliculaReviews:
+                Intent intent4 = new Intent(PeliculaActivity.this, ReviewActivity.class);
+                intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
+                return true;
+        }
+        return onOptionsItemSelected(item);}
 
     public boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

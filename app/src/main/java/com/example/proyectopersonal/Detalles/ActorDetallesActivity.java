@@ -14,26 +14,41 @@ import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.example.proyectopersonal.MainActivity;
 import com.example.proyectopersonal.MovieDB;
+import com.example.proyectopersonal.PeliculasEstrenoActivity;
+import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
+
 public class ActorDetallesActivity extends AppCompatActivity {
 
+    Movie[] listaMovies;
+    int x;
     MovieDB movieDB = new MovieDB();
 
     @Override
@@ -87,19 +102,46 @@ public class ActorDetallesActivity extends AppCompatActivity {
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
+
                         @Override
                         public void onResponse(String response) {
-                            Gson gson = new Gson();
-                            Movie[] arrayMovies = gson.fromJson(response,Movie[].class);
-                            List<Movie> listaMovies = Arrays.asList(arrayMovies);
 
-                            final MovieAdapter movieAdapter = new MovieAdapter(arrayMovies, ActorDetallesActivity.this);
-                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
-                            recyclerView.setAdapter(movieAdapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(ActorDetallesActivity.this));
+                            try { JSONObject jsonObject = new JSONObject(response);
+                                JSONArray cast = (JSONArray) jsonObject.get("cast");
+                                int tamañoLista = cast.length();
+                                listaMovies = new Movie[tamañoLista];
 
-                            TextView cantidadMovies = (TextView) findViewById(R.id.textViewCantidadActor);
-                            int tamañoLista = arrayMovies.length; cantidadMovies.setText(tamañoLista);
+                                TextView cantidadMovies = (TextView) findViewById(R.id.textViewCantidadActor);
+                                cantidadMovies.setText(tamañoLista);
+
+                                for ( int x=0; x<tamañoLista; x++){
+                                    Movie movie = new Movie();
+                                    JSONObject pelicula = (JSONObject) cast.get(x);
+                                    String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
+                                    Log.d("PeliculaID",  idMovie);
+                                    String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
+                                    Log.d("PeliculaTítulo",  tituloMovie);
+                                    String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
+                                    String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
+                                    String lenguajeMovie = pelicula.getString("original_language"); movie.setOriginal_language(lenguajeMovie);
+                                    // String duracionMovie = pelicula.getString("runtime"); movie.setRuntime(Integer.valueOf(duracionMovie));
+                                    String estrenoMovie = pelicula.getString("release_date"); movie.setRelease_date(estrenoMovie);
+                                    String puntuacionMovie = pelicula.getString("vote_average"); movie.setVote_average(puntuacionMovie);
+                                    String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
+                                    //String fraseMovie = pelicula.getString("tagline"); movie.setTagline(fraseMovie);
+                                    listaMovies[x] = movie;
+                                }
+
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, ActorDetallesActivity.this);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
+                                recyclerView.setAdapter(movieAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(ActorDetallesActivity.this));
+
+
+                            }
+
+                            catch (JSONException e) { e.printStackTrace(); }
+
 
                         }
                     },
@@ -114,6 +156,26 @@ public class ActorDetallesActivity extends AppCompatActivity {
 
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.PeliculasPopulares:
+                startActivity(new Intent(ActorDetallesActivity.this, MainActivity.class));
+                return true;
+            case R.id.PeliculasRateadas:
+                startActivity(new Intent(ActorDetallesActivity.this, PeliculasTopActivity.class));
+                return true;
+            case R.id.PeliculasEstreno:
+                startActivity(new Intent(ActorDetallesActivity.this, PeliculasEstrenoActivity.class));
+                return true;
+        }
+        return onOptionsItemSelected(item);}
 
     public boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

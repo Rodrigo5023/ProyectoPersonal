@@ -50,8 +50,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo" />
 
+    <TextView
+        android:id="@+id/textViewCantidadEquipo"
+        android:layout_width="184dp"
+        android:layout_height="24dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewEquipoMovies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView "
+        android:id="@+id/recyclerViewEquipoMovies"
         android:layout_width="365dp"
         android:layout_height="213dp"
         android:layout_marginTop="24dp"
@@ -59,13 +69,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <TextView
-        android:id="@+id/textViewCantidadEquipo"
-        android:layout_width="184dp"
-        android:layout_height="24dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
