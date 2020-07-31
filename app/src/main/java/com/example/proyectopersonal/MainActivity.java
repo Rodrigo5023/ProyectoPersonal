@@ -25,7 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
-import com.example.proyectopersonal.Entidades.MovieDTO;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
