@@ -21,10 +21,4 @@
         android:title="Item"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/PeliculaReview"
-        android:icon="@drawable/ic_action_name"
-        android:title="Item"
-        app:showAsAction="ifRoom" />
-
 </menu>
