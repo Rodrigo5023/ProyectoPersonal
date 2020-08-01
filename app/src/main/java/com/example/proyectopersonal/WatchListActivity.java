@@ -34,8 +34,8 @@ public class WatchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String nombreFiltro = user.getDisplayName();
+        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // final String nombreFiltro = user.getDisplayName();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.child("WatchList").addValueEventListener(new ValueEventListener() {
@@ -49,7 +49,7 @@ public class WatchListActivity extends AppCompatActivity {
                     for(DataSnapshot children: dataSnapshot.getChildren()){
                         if (dataSnapshot.exists()){
                             final Movie movie = children.getValue(Movie.class);
-                            if (movie.getVysor().equals(nombreFiltro) ) { listaWatchList.add(movie);}
+                            if (movie.getVysor().equals("UsuarioPrueba1") ) { listaWatchList.add(movie);}
                         }
                     }
                     listaPelisMiradas = new Movie[longitudWL];

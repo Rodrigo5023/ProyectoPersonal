@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -26,7 +24,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
-import com.example.proyectopersonal.Detalles.PeliculaActivity;
 import com.example.proyectopersonal.Entidades.Movie;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,22 +31,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PeliculasPopularesActivity extends AppCompatActivity {
+public class BusquedaActivity extends AppCompatActivity {
 
+    String query;
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
     int x;
     RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peliculas_populares);
+        setContentView(R.layout.activity_busqueda);
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            query = intent.getStringExtra(SearchManager.QUERY);
+        }
+
 
         // PELICULAS MAS POPULARES
         if(isInternetAvailable()) {
-            //https://api.themoviedb.org/3/movie/popular?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/popular?api_key=" + movieDB.getApiKey() + "&language=es-ES";
-            RequestQueue queueMoviesPopulares = Volley.newRequestQueue(PeliculasPopularesActivity.this);
+            //https://api.themoviedb.org/3/search/movie?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&query=once
+            String urlPelicula = movieDB.getUrlMovieDB() + "search/movie?api_key=" + movieDB.getApiKey() + "&language=en-US&query=" + query;
+            RequestQueue queueMoviesPopulares = Volley.newRequestQueue(BusquedaActivity.this);
 
             StringRequest stringRequest = new StringRequest(StringRequest.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
@@ -80,10 +85,10 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasPopularesActivity.this);
-                                recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,BusquedaActivity.this);
+                                recyclerView = (RecyclerView) findViewById(R.id.recyclerViewBusqueda);
                                 recyclerView.setAdapter(movieAdapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasPopularesActivity.this));
+                                recyclerView.setLayoutManager(new LinearLayoutManager(BusquedaActivity.this));
 
 
                             }
@@ -96,7 +101,7 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(PeliculasPopularesActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BusquedaActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -109,28 +114,23 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(true);
         return true;
-
     }
 
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(PeliculasPopularesActivity.this, PeliculasPopularesActivity.class));
+                startActivity(new Intent(BusquedaActivity.this, PeliculasPopularesActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
-                startActivity(new Intent(PeliculasPopularesActivity.this, PeliculasTopActivity.class));
+                startActivity(new Intent(BusquedaActivity.this, PeliculasTopActivity.class));
                 return true;
             case R.id.PeliculasEstreno:
-                startActivity(new Intent(PeliculasPopularesActivity.this, PeliculasEstrenoActivity.class));
+                startActivity(new Intent(BusquedaActivity.this, PeliculasEstrenoActivity.class));
                 return true;
             case R.id.WatchList:
-                startActivity(new Intent(PeliculasPopularesActivity.this, WatchListActivity.class));
+                startActivity(new Intent(BusquedaActivity.this, WatchListActivity.class));
 
         }
         return onOptionsItemSelected(item);}

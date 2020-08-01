@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ProyectoPersonal</string>
+    <string name="search_hint">Buscar Película</string>
 </resources>
