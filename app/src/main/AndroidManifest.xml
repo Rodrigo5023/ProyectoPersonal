@@ -11,11 +11,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MyReviews"></activity>
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".MyReviews"/>
         <activity android:name=".AddReviewActivity" />
         <activity android:name=".WatchListActivity" />
-        <activity android:name=".PeliculasPopularesActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".RecomendacionesActivity" />
         <activity android:name=".Detalles.EquipoDetallesActivity" />
         <activity android:name=".Detalles.ActorDetallesActivity" />
@@ -26,7 +26,7 @@
         <activity android:name=".PeliculasEstrenoActivity" />
         <activity android:name=".PeliculasTopActivity" />
         <activity android:name=".Detalles.PeliculaActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".PeliculasPopularesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

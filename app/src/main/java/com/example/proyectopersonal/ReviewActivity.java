@@ -54,7 +54,7 @@ public class ReviewActivity extends AppCompatActivity {
         // REVIEWS DE LA PELICULA
         if(isInternetAvailable()) {
             // https://api.themoviedb.org/3/movie/475557/reviews?api_key=06a1953c26075c04668b820d78955ec7&language=en-US
-            String urlReviews = movieDB.getUrlMovieDB() + "movie/" + idPelicula + "?/reviews?api_key=" + movieDB.getApiKey() + "&language=es-ES";
+            String urlReviews = movieDB.getUrlMovieDB() + "movie/" + idPelicula + "/reviews?api_key=" + movieDB.getApiKey() + "&language=en-US";
             final RequestQueue queueReviews = Volley.newRequestQueue(ReviewActivity.this);
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlReviews,
                     new Response.Listener<String>() {
@@ -71,9 +71,9 @@ public class ReviewActivity extends AppCompatActivity {
                                     Review review = new Review();
                                     JSONObject revius = (JSONObject) results.get(x);
                                     String idReview = revius.getString("id"); review.setId(idReview);
-                                    String autorReview = revius.getString("id"); review.setAuthor(autorReview);
-                                    String cuerpoReview = revius.getString("id"); review.setContent(cuerpoReview);
-                                    String urlReview = revius.getString("id"); review.setUrl(urlReview);
+                                    String autorReview = revius.getString("author"); review.setAuthor(autorReview);
+                                    String cuerpoReview = revius.getString("content"); review.setContent(cuerpoReview);
+                                    String urlReview = revius.getString("url"); review.setUrl(urlReview);
                                     listaReviews[x] = review;
                                 }
 

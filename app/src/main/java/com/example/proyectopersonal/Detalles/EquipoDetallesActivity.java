@@ -72,15 +72,15 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Gson gson = new Gson();
-                            Cast actor = gson.fromJson(response,Cast.class);
+                            Crew actor = gson.fromJson(response,Crew.class);
 
                             TextView nombreActor = (TextView) findViewById(R.id.textViewNombreEquipo); nombreActor.setText(actor.getName());
                             TextView biografiaActor = (TextView) findViewById(R.id.textViewbBiography); biografiaActor.setText(actor.getBiography());
                             ImageView fotoActor = (ImageView) findViewById(R.id.imageViewFotoEquipo); String poster = actor.getProfile_path();
                             String urlPoster = movieDB.getUrlPhoto() + poster;
-                            String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
-                            if (poster != null) { Glide.with(EquipoDetallesActivity.this).load(urlPoster).into(fotoActor);}
-                            else { Glide.with(EquipoDetallesActivity.this).load(urlNull).into(fotoActor);}
+                            //String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
+                            //if (poster != null) { Glide.with(EquipoDetallesActivity.this).load(urlPoster).into(fotoActor);}
+                            //else { Glide.with(EquipoDetallesActivity.this).load(urlNull).into(fotoActor);}
 
                         }
                     },
@@ -98,7 +98,7 @@ public class EquipoDetallesActivity extends AppCompatActivity {
         // OBTENER PELICULAS POR EQUIPO
         if(isInternetAvailable()) {
             //https://api.themoviedb.org/3/person/190/movie_credits?api_key=06a1953c26075c04668b820d78955ec7&language=en-US
-            String urlPelicula = movieDB.getUrlMovieDB() + "person/" + idDirector + "?api_key=" + movieDB.getApiKey() + "&language=en-US";
+            String urlPelicula = movieDB.getUrlMovieDB() + "person/" + idDirector + "/movie_credits?api_key=" + movieDB.getApiKey() + "&language=en-US";
             final RequestQueue queueMovies = Volley.newRequestQueue(EquipoDetallesActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
@@ -113,7 +113,7 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                                 listaMovies = new Movie[tamañoLista];
 
                                 TextView cantidadMovies = (TextView) findViewById(R.id.textViewCantidadEquipo);
-                                cantidadMovies.setText(tamañoLista);
+                                cantidadMovies.setText(String.valueOf(tamañoLista));
 
                                 for ( int x=0; x<tamañoLista; x++){
                                     Movie movie = new Movie();
@@ -134,7 +134,7 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                                 }
 
                                 final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, EquipoDetallesActivity.this);
-                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewEquipoMovies);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(EquipoDetallesActivity.this));
 

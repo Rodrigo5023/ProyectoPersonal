@@ -42,7 +42,7 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
     int x;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

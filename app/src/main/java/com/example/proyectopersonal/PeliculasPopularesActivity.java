@@ -35,11 +35,11 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
     int x;
-
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_peliculas_populares);
 
         // PELICULAS MAS POPULARES
         if(isInternetAvailable()) {
@@ -77,7 +77,7 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
                                 }
 
                                 final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasPopularesActivity.this);
-                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+                                recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasPopularesActivity.this));
 
@@ -95,6 +95,8 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
                             Toast.makeText(PeliculasPopularesActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
                         }
                     });
+
+
 
             queueMoviesPopulares.add(stringRequest);
         }

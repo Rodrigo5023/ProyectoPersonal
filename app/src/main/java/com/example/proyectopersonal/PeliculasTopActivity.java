@@ -82,7 +82,7 @@ public class PeliculasTopActivity extends AppCompatActivity {
                                 }
 
                                 final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasTopActivity.this);
-                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewTop);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasTopActivity.this));
 

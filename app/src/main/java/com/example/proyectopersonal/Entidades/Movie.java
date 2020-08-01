@@ -6,7 +6,7 @@ public class Movie {
 
     private String backdrop_path; //
     private Genero[] listaGeneros;
-    private int budget; //
+    private String budget; //
     private String homepage; //
     private int id; //
     private String original_language; //
@@ -14,7 +14,7 @@ public class Movie {
     private String overview;    //
     private String poster_path;  //
     private String release_date; //
-    private int runtime; //
+    private String runtime; //
     private String status; //
     private String tagline; //
     private String vote_average; //
@@ -22,14 +22,27 @@ public class Movie {
     private String vysor; //
 
 
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
 
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
 
+    public Genero[] getListaGeneros() {
+        return listaGeneros;
+    }
 
-    public int getBudget() {
+    public void setListaGeneros(Genero[] listaGeneros) {
+        this.listaGeneros = listaGeneros;
+    }
+
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(int budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
@@ -65,6 +78,14 @@ public class Movie {
         this.original_title = original_title;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
     public String getPoster_path() {
         return poster_path;
     }
@@ -81,11 +102,11 @@ public class Movie {
         this.release_date = release_date;
     }
 
-    public int getRuntime() {
+    public String getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(int runtime) {
+    public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
@@ -119,30 +140,6 @@ public class Movie {
 
     public void setVote_count(String vote_count) {
         this.vote_count = vote_count;
-    }
-
-    public String getBackdrop_path() {
-        return backdrop_path;
-    }
-
-    public void setBackdrop_path(String backdrop_path) {
-        this.backdrop_path = backdrop_path;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public Genero[] getListaGeneros() {
-        return listaGeneros;
-    }
-
-    public void setListaGeneros(Genero[] listaGeneros) {
-        this.listaGeneros = listaGeneros;
     }
 
     public String getVysor() {

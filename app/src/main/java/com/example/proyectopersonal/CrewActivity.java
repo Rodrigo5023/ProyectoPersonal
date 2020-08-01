@@ -53,7 +53,7 @@ public class CrewActivity extends AppCompatActivity {
         // METODO EQUIPO DE LA PELICULA
         if (isInternetAvailable()) {
             // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=06a1953c26075c04668b820d78955ec7
-            String urlActores = movieDB.getUrlMovieDB() + "movie/" + idPelicula + "?/credits?api_key=" + movieDB.getApiKey();
+            String urlActores = movieDB.getUrlMovieDB() + "movie/" + idPelicula + "/credits?api_key=" + movieDB.getApiKey();
             final RequestQueue queueCastAndCrew = Volley.newRequestQueue(CrewActivity.this);
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlActores,
                     new Response.Listener<String>() {

@@ -57,7 +57,7 @@ public class CastActivity extends AppCompatActivity {
         // METODO ACTORES DE LA PELICULA
         if (isInternetAvailable()) {
             // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=06a1953c26075c04668b820d78955ec7
-            String urlActores = movieDB.getUrlMovieDB() + "movie/" + idPelicula + "?/credits?api_key=" + movieDB.getApiKey();
+            String urlActores = movieDB.getUrlMovieDB() + "movie/" + idPelicula + "/credits?api_key=" + movieDB.getApiKey();
             final RequestQueue queueCastAndCrew = Volley.newRequestQueue(CastActivity.this);
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlActores,
                     new Response.Listener<String>() {
@@ -84,7 +84,7 @@ public class CastActivity extends AppCompatActivity {
                                 }
 
                                 final CastAdapter castAdapter = new CastAdapter(listaActores,CastActivity.this);
-                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewCast);
                                 recyclerView.setAdapter(castAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(CastActivity.this));
 

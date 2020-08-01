@@ -53,7 +53,8 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.CastViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(contexto, ActorDetallesActivity.class);
-                int idActor = actor.getId();
+                int idActorX = actor.getId();
+                String idActor = String.valueOf(idActorX);
                 intent.putExtra("idActor", idActor);
                 contexto.startActivity(intent);}
         });

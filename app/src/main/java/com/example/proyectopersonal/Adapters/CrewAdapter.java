@@ -58,7 +58,8 @@ public class CrewAdapter extends RecyclerView.Adapter<CrewAdapter.CrewViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(contexto, EquipoDetallesActivity.class);
-                int idDirector = crew.getId();
+                int idDirectorX = crew.getId();
+                String idDirector = String.valueOf(idDirectorX);
                 intent.putExtra("idDirector", idDirector);
                 contexto.startActivity(intent);}
         });

@@ -35,7 +35,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             super(itemView);
             this.autorReview =itemView.findViewById(R.id.textViewAutorComentario);
             this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario);
-            this.botonBorrar = itemView.findViewById(R.id.buttonBorrar);}
+            // this.botonBorrar = itemView.findViewById(R.id.buttonBorrar);
+            }
     }
 
     @NonNull

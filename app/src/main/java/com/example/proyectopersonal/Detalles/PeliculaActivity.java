@@ -63,9 +63,9 @@ public class PeliculaActivity extends AppCompatActivity {
     String idPelicula;
     Movie movie;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    final String nombreFiltro = user.getDisplayName();
-    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    // final String nombreFiltro = user.getDisplayName();
+    // final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -97,7 +97,7 @@ public class PeliculaActivity extends AppCompatActivity {
 
                     ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster); String poster = movie.getPoster_path();
                     String urlPoster = movieDB.getUrlPhoto() + poster;
-                    Glide.with(PeliculaActivity.this).load(urlPoster).into(moviePoster);
+                    //Glide.with(PeliculaActivity.this).load(urlPoster).into(moviePoster);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -123,12 +123,12 @@ public class PeliculaActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(PeliculaActivity.this, "Error:Movie", Toast.LENGTH_SHORT).show();
+
                 }
             }); queueMovies.add(stringRequest);
         }
 
-        final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
+        /* final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
         botonWatchList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,19 +138,22 @@ public class PeliculaActivity extends AppCompatActivity {
                 botonWatchList.setVisibility(View.INVISIBLE);
             }
         });
+       */
 
         Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
         botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
-                intent.putExtra("idMovie", idPelicula);
+                int idMovieX = movie.getId();
+                String idMovie = String.valueOf(idMovieX);
+                intent.putExtra("idMovie", idMovie);
                 startActivity(intent);
             }
         });
 
         Button botonNuevaReview = (Button) findViewById(R.id.buttonNuevoReview);
-        botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
+        botonNuevaReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PeliculaActivity.this, AddReviewActivity.class);
@@ -172,19 +175,23 @@ public class PeliculaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.PeliculaActores:
                 Intent intent1 = new Intent(PeliculaActivity.this, CastActivity.class);
-                intent1.putExtra("idMovie", idPelicula); startActivity(intent1);
+                String idMovie1 = String.valueOf(idPelicula);
+                intent1.putExtra("idMovie", idMovie1); startActivity(intent1);
                 return true;
             case R.id.PeliculaDirector:
                 Intent intent2 = new Intent(PeliculaActivity.this, CrewActivity.class);
-                intent2.putExtra("idMovie", idPelicula); startActivity(intent2);
+                String idMovie2 = String.valueOf(idPelicula);
+                intent2.putExtra("idMovie", idMovie2); startActivity(intent2);
                 return true;
             case R.id.PeliculaRecomendaciones:
                 Intent intent3 = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
-                intent3.putExtra("idMovie", idPelicula); startActivity(intent3);
+                String idMovie = String.valueOf(idPelicula);
+                intent3.putExtra("idMovie", idMovie); startActivity(intent3);
                 return true;
             case R.id.PeliculaReviews:
                 Intent intent4 = new Intent(PeliculaActivity.this, ReviewActivity.class);
-                intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
+                String idMovie4 = String.valueOf(idPelicula);
+                intent4.putExtra("idMovie", idMovie4); startActivity(intent4);
                 return true;
         }
         return onOptionsItemSelected(item);}

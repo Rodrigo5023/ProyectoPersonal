@@ -68,7 +68,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(contexto, PeliculaActivity.class);
-                    int idMovie = movie.getId();
+                    int idMovieX = movie.getId();
+                    String idMovie = String.valueOf(idMovieX);
                     intent.putExtra("idMovie", idMovie);
                     contexto.startActivity(intent);}
             });
@@ -82,7 +83,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public void publicarImagen (String url, MovieViewHolder holder){
-        Glide.with(contexto).load(url).into(holder.posterMovie);
+        Glide.with(contexto).load(url).load(url).into(holder.posterMovie);
     }
 
 
