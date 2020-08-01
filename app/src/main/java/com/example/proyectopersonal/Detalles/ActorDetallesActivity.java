@@ -17,6 +17,7 @@ import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.MainActivity;
 import com.example.proyectopersonal.MovieDB;
 import com.example.proyectopersonal.PeliculasEstrenoActivity;
+import com.example.proyectopersonal.PeliculasPopularesActivity;
 import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.google.gson.Gson;
@@ -166,7 +167,7 @@ public class ActorDetallesActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(ActorDetallesActivity.this, MainActivity.class));
+                startActivity(new Intent(ActorDetallesActivity.this, PeliculasPopularesActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
                 startActivity(new Intent(ActorDetallesActivity.this, PeliculasTopActivity.class));

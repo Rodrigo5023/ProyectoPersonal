@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,35 +24,30 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
-import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class PeliculasEstrenoActivity extends AppCompatActivity {
+public class PeliculasPopularesActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
     int x;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peliculas_estreno);
+        setContentView(R.layout.activity_main);
 
-        // PELICULAS QUE SE VAN A ESTRENAR
-        if (isInternetAvailable()) {
-            //https://api.themoviedb.org/3/movie/upcoming?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/upcoming?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
-            final RequestQueue queueMoviesEstreno = Volley.newRequestQueue(PeliculasEstrenoActivity.this);
+        // PELICULAS MAS POPULARES
+        if(isInternetAvailable()) {
+            //https://api.themoviedb.org/3/movie/popular?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/popular?api_key=" + movieDB.getApiKey() + "&language=es-ES";
+            RequestQueue queueMoviesPopulares = Volley.newRequestQueue(PeliculasPopularesActivity.this);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
+            StringRequest stringRequest = new StringRequest(StringRequest.Method.GET, urlPelicula,
                     new Response.Listener<String>() {
 
                         @Override
@@ -82,10 +76,10 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasEstrenoActivity.this);
-                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewEstreno);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasPopularesActivity.this);
+                                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
                                 recyclerView.setAdapter(movieAdapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasEstrenoActivity.this));
+                                recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasPopularesActivity.this));
 
 
                             }
@@ -98,15 +92,15 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(PeliculasEstrenoActivity.this, "Error: Rateadas", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PeliculasPopularesActivity.this, "Error: Populares", Toast.LENGTH_SHORT).show();
                         }
                     });
-            queueMoviesEstreno.add(stringRequest);
-        }
 
+            queueMoviesPopulares.add(stringRequest);
+        }
     }
 
-    @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
         return true;
@@ -116,13 +110,13 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(PeliculasEstrenoActivity.this, PeliculasPopularesActivity.class));
+                startActivity(new Intent(PeliculasPopularesActivity.this, PeliculasPopularesActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
-                startActivity(new Intent(PeliculasEstrenoActivity.this, PeliculasTopActivity.class));
+                startActivity(new Intent(PeliculasPopularesActivity.this, PeliculasTopActivity.class));
                 return true;
             case R.id.PeliculasEstreno:
-                startActivity(new Intent(PeliculasEstrenoActivity.this, PeliculasEstrenoActivity.class));
+                startActivity(new Intent(PeliculasPopularesActivity.this, PeliculasEstrenoActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}
@@ -149,4 +143,6 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
             if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_ETHERNET) return true;
             return false; }
     }
+
+
 }

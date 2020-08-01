@@ -113,7 +113,7 @@ public class PeliculasTopActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(PeliculasTopActivity.this, MainActivity.class));
+                startActivity(new Intent(PeliculasTopActivity.this, PeliculasPopularesActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
                 startActivity(new Intent(PeliculasTopActivity.this, PeliculasTopActivity.class));

@@ -116,7 +116,7 @@ public class RecomendacionesActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.PeliculasPopulares:
-                startActivity(new Intent(RecomendacionesActivity.this, MainActivity.class));
+                startActivity(new Intent(RecomendacionesActivity.this, PeliculasPopularesActivity.class));
                 return true;
             case R.id.PeliculasRateadas:
                 startActivity(new Intent(RecomendacionesActivity.this, PeliculasTopActivity.class));
