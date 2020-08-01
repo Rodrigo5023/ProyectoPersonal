@@ -18,19 +18,24 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     Review[] listaReview;
     Context contexto;
+    int condicionReview;
 
     public ReviewAdapter (Review[] listaReview, Context contexto) {
         this.listaReview = listaReview;
-        this.contexto = contexto; }
+        this.contexto = contexto;
+        // this.condicionReview = condicionReview;
+        }
 
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
         public TextView autorReview;
         public TextView cuerpoReview;
+        public Button botonBorrar;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             this.autorReview =itemView.findViewById(R.id.textViewAutorComentario);
-            this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario); }
+            this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario);
+            this.botonBorrar = itemView.findViewById(R.id.buttonBorrar);}
     }
 
     @NonNull
@@ -45,6 +50,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         final Review review = listaReview[position];
         String autorReview = review.getAuthor(); holder.autorReview.setText(autorReview);
         String cuerpoReview = review.getContent(); holder.cuerpoReview.setText(cuerpoReview);
+
+        //if (condicionReview == 1){
+        //    holder.botonBorrar.setOnClickListener();
+       //  }
+
     }
 
     @Override

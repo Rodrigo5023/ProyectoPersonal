@@ -25,6 +25,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +42,7 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
     int x;
-
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

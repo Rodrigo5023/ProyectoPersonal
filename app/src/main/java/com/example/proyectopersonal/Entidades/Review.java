@@ -6,6 +6,7 @@ public class Review {
     private String content;
     private String id;
     private String url;
+    private String idPelicula;
 
     public String getAuthor() {
         return author;
@@ -37,5 +38,13 @@ public class Review {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getIdPelicula() {
+        return idPelicula;
+    }
+
+    public void setIdPelicula(String idPelicula) {
+        this.idPelicula = idPelicula;
     }
 }

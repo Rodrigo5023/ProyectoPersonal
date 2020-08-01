@@ -4,21 +4,23 @@ import java.util.ArrayList;
 
 public class Movie {
 
-    private String backdrop_path;
+    private String backdrop_path; //
     private Genero[] listaGeneros;
-    private int budget;
-    private String homepage;
-    private int id;
-    private String original_language;
-    private String original_title;
-    private String overview;
-    private String poster_path;
-    private String release_date;
-    private int runtime;
-    private String status;
-    private String tagline;
-    private String vote_average;
-    private String vote_count;
+    private int budget; //
+    private String homepage; //
+    private int id; //
+    private String original_language; //
+    private String original_title; //
+    private String overview;    //
+    private String poster_path;  //
+    private String release_date; //
+    private int runtime; //
+    private String status; //
+    private String tagline; //
+    private String vote_average; //
+    private String vote_count; //
+    private String vysor; //
+
 
 
 
@@ -141,5 +143,13 @@ public class Movie {
 
     public void setListaGeneros(Genero[] listaGeneros) {
         this.listaGeneros = listaGeneros;
+    }
+
+    public String getVysor() {
+        return vysor;
+    }
+
+    public void setVysor(String vysor) {
+        this.vysor = vysor;
     }
 }

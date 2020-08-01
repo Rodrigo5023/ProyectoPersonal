@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -44,9 +46,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
+    public void iniciarSesion(View view){
 
+        List<AuthUI.IdpConfig> listaProveedores =
+                Arrays.asList(
+                        new AuthUI.IdpConfig.EmailBuilder().build(),
+                        new AuthUI.IdpConfig.GoogleBuilder().build()
+                );
 
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(listaProveedores)
+                        .build(),
+                1);
 
 
     }

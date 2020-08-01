@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PeliculasPopularesActivity"></activity>
+        <activity android:name=".MyReviews"></activity>
+        <activity android:name=".AddReviewActivity" />
+        <activity android:name=".WatchListActivity" />
+        <activity android:name=".PeliculasPopularesActivity" />
         <activity android:name=".RecomendacionesActivity" />
         <activity android:name=".Detalles.EquipoDetallesActivity" />
         <activity android:name=".Detalles.ActorDetallesActivity" />

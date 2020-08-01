@@ -29,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Adapters.GeneroAdapter;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
+import com.example.proyectopersonal.AddReviewActivity;
 import com.example.proyectopersonal.CastActivity;
 import com.example.proyectopersonal.CrewActivity;
 import com.example.proyectopersonal.Entidades.Cast;
@@ -43,6 +44,10 @@ import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.example.proyectopersonal.RecomendacionesActivity;
 import com.example.proyectopersonal.ReviewActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -56,6 +61,11 @@ public class PeliculaActivity extends AppCompatActivity {
     MovieDB movieDB = new MovieDB();
     Genero[] listaGeneros;
     String idPelicula;
+    Movie movie;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String nombreFiltro = user.getDisplayName();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -75,7 +85,7 @@ public class PeliculaActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                   Gson gson = new Gson();
-                  Movie movie = gson.fromJson(response,Movie.class);
+                  movie = gson.fromJson(response,Movie.class);
 
                     // Revisar los nombres de los TextViews
                     TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getOriginal_title());
@@ -107,15 +117,7 @@ public class PeliculaActivity extends AppCompatActivity {
 
                     } catch (JSONException e) { e.printStackTrace(); }
 
-                    Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
-                    botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
-                            intent.putExtra("idMovie", idPelicula);
-                            startActivity(intent);
-                        }
-                    });
+
                 }
             },
                     new Response.ErrorListener() {
@@ -126,6 +128,36 @@ public class PeliculaActivity extends AppCompatActivity {
             }); queueMovies.add(stringRequest);
         }
 
+        final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
+        botonWatchList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                movie.setVysor(nombreFiltro);
+                databaseReference.child("WatchList").push().setValue(movie);
+                Toast.makeText(PeliculaActivity.this, "Se agregó esta película a su WatchList", Toast.LENGTH_SHORT).show();
+                botonWatchList.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
+        botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
+                intent.putExtra("idMovie", idPelicula);
+                startActivity(intent);
+            }
+        });
+
+        Button botonNuevaReview = (Button) findViewById(R.id.buttonNuevoReview);
+        botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PeliculaActivity.this, AddReviewActivity.class);
+                intent.putExtra("idMovie", idPelicula);
+                startActivity(intent);
+            }
+        });
 
 
     }

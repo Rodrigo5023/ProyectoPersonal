@@ -81,13 +81,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewDuracion" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonWatchList"
         android:layout_width="123dp"
-        android:layout_height="44dp"
+        android:layout_height="55dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
-        android:text="Streaming"
+        android:text="Agregar a WatchList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageViewPoster"
@@ -163,12 +163,22 @@
         android:id="@+id/Recomendaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="100dp"
         android:text="Recomendaciones"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toEndOf="@+id/recyclerViewGeneros" />
+
+    <Button
+        android:id="@+id/buttonNuevoReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hacer Review"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerViewGeneros"
+        app:layout_constraintTop_toBottomOf="@+id/Recomendaciones" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
