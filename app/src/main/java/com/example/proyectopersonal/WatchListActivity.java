@@ -35,7 +35,7 @@ public class WatchListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_watch_list);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String nombreFiltro = user.getEmail();
+        final String correoUsuario = user.getEmail();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.child("WatchList").addValueEventListener(new ValueEventListener() {
@@ -50,7 +50,7 @@ public class WatchListActivity extends AppCompatActivity {
                         if (dataSnapshot.exists()){
                             final Movie movie = children.getValue(Movie.class);
                             String nombreRaro = children.getKey(); movie.setNombreRaro(nombreRaro);
-                            if (movie.getVysor().equals(nombreFiltro) ) { listaWatchList.add(movie);}
+                            if (movie.getVysor().equals(correoUsuario) ) { listaWatchList.add(movie);}
                         }
                     }
                     listaPelisMiradas = new Movie[longitudWL];
@@ -58,7 +58,8 @@ public class WatchListActivity extends AppCompatActivity {
                     for (int x=0; x<longitudWL; x++){
                         listaPelisMiradas[x] = (Movie) listaWatchList.get(x); }
 
-                    MovieAdapter movieAdapter = new MovieAdapter(listaPelisMiradas, WatchListActivity.this,CONDICION,databaseReference);
+                    MovieAdapter movieAdapter = new MovieAdapter(listaPelisMiradas, WatchListActivity.this,CONDICION,databaseReference,
+                            correoUsuario);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewWatchList);
                     recyclerView.setAdapter(movieAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(WatchListActivity.this));

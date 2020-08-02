@@ -86,7 +86,8 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
                                     String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
                                     listaMovies[x] = movie;
                                 }
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasEstrenoActivity.this,CONDICION,databaseReference);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasEstrenoActivity.this,CONDICION,databaseReference,
+                                        correoUsuario);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewEstreno);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasEstrenoActivity.this));

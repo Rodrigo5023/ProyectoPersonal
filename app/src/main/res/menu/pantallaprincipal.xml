@@ -26,6 +26,13 @@
       android:icon="@drawable/ic_action_name"
       android:title="WatchList"
       app:showAsAction="withText" />
+
+  <item
+      android:id="@+id/Reviews"
+      android:icon="@drawable/ic_action_name"
+      android:title="Reviews"
+      app:showAsAction="withText" />
+
   <item
       android:id="@+id/app_bar_search"
       android:icon="@drawable/ic_search_black_24dp"

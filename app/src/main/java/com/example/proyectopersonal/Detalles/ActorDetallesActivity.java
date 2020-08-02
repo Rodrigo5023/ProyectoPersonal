@@ -154,7 +154,8 @@ public class ActorDetallesActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, ActorDetallesActivity.this,CONDICION,databaseReference);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, ActorDetallesActivity.this,CONDICION,databaseReference,
+                                        correoUsuario);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(ActorDetallesActivity.this));

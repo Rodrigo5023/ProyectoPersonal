@@ -3,6 +3,7 @@ package com.example.proyectopersonal.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,23 +20,37 @@ import com.example.proyectopersonal.Detalles.PeliculaActivity;
 import com.example.proyectopersonal.PeliculasPopularesActivity;
 import com.example.proyectopersonal.R;
 import com.example.proyectopersonal.WatchListActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
+    ArrayList<Movie> listaPelisMiradas;
+
     private static final String urlPhoto = " https://image.tmdb.org/t/p/w600_and_h900_bestv2";
+
+    int condition;
 
     DatabaseReference databaseReference;
     int condicion;
     Movie[] listaMovie;
     Context contexto;
+    String correoUser;
 
-    public MovieAdapter (Movie[] listaMovie, Context contexto,int condicion, DatabaseReference databaseReference) {
+    public MovieAdapter (Movie[] listaMovie, Context contexto,int condicion, DatabaseReference databaseReference
+    , String correoUser) {
         this.listaMovie = listaMovie;
         this.contexto = contexto;
         this.condicion = condicion;
-        this.databaseReference = databaseReference;}
+        this.databaseReference = databaseReference;
+        this.correoUser = correoUser;}
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         public TextView nombreMovie;
@@ -75,6 +90,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         String urlPoster = urlPhoto + movie.getPoster_path();
         publicarImagen(urlPoster, holder);
 
+
             holder.botonDetalles.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,6 +98,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     int idMovieX = movie.getId();
                     String idMovie = String.valueOf(idMovieX);
                     intent.putExtra("idMovie", idMovie);
+                    intent.putExtra("condition", String.valueOf(condition));
                     contexto.startActivity(intent);}
             });
 
@@ -95,6 +112,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 });
 
             }
+
+
+
 
 
     }

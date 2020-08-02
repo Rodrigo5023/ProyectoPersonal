@@ -90,7 +90,8 @@ public class RecomendacionesActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,RecomendacionesActivity.this,CONDICION, databaseReference);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,RecomendacionesActivity.this,CONDICION, databaseReference,
+                                        correoUsuario);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewRecomendaciones);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(RecomendacionesActivity.this));

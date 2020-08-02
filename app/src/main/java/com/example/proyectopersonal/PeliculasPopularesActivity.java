@@ -85,7 +85,8 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
                                     String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
                                     listaMovies[x] = movie;
                                 }
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasPopularesActivity.this,CONDICION,databaseReference);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasPopularesActivity.this,CONDICION,databaseReference,
+                                        correoUsuario);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMovies);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasPopularesActivity.this));
@@ -131,6 +132,10 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
                 return true;
             case R.id.WatchList:
                 startActivity(new Intent(PeliculasPopularesActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(PeliculasPopularesActivity.this, MyReviews.class));
+                return true;
 
         }
         return onOptionsItemSelected(item);}

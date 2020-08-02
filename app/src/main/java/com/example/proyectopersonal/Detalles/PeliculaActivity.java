@@ -13,6 +13,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,12 +72,19 @@ public class PeliculaActivity extends AppCompatActivity {
     Genero[] listaGeneros;
     String idPelicula;
     Movie movie;
-    final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
-    ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster);
+    int condicion;
+    String conditionX;
+
+
+
+
+    //ImageView moviePoster = findViewById(R.id.imageViewPoster);
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String correoUser = user.getEmail();
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+
 
 
     @Override
@@ -85,6 +93,9 @@ public class PeliculaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pelicula);
 
        idPelicula = getIntent().getStringExtra("idMovie");
+       conditionX = getIntent().getStringExtra("condition");
+
+
 
         // METODO DETALLES DE LA PELICULA
         if(isInternetAvailable()) {
@@ -97,6 +108,8 @@ public class PeliculaActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                   Gson gson = new Gson();
                   movie = gson.fromJson(response,Movie.class);
+
+
 
                     // Revisar los nombres de los TextViews
                     TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getTitle());
@@ -140,19 +153,41 @@ public class PeliculaActivity extends AppCompatActivity {
         }
 
         // Agregar validacion de película
-
         databaseReference.child("WatchList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    listaPelisMiradas = new ArrayList<Movie>();
                     for(DataSnapshot children: dataSnapshot.getChildren()){
                         if (dataSnapshot.exists()){
-                            final Movie movie1 = children.getValue(Movie.class);
+                            Movie movie1 = children.getValue(Movie.class);
                             boolean cond1 = movie1.getVysor().equals(correoUser);
-                            boolean cond2 = movie1.getId() == movie.getId();
-                            if (cond1 & cond2 ) { listaPelisMiradas.add(movie);}
+                            boolean cond2 = movie1.getId() == Integer.valueOf(idPelicula);
+                            boolean condX = cond1 & cond2;
+                            if (condX) {
+                                listaPelisMiradas.add(movie1); }
                         }
                     }
+                }  condicion = listaPelisMiradas.size();
+                Log.d("condicion",  String.valueOf(condicion));
+
+                final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
+                if (condicion == 0)
+                {
+
+                    botonWatchList.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            movie.setVysor(correoUser);
+                            databaseReference.child("WatchList").push().setValue(movie);
+                            Toast.makeText(PeliculaActivity.this, "Se agregó esta película a su WatchList", Toast.LENGTH_SHORT).show();
+                            botonWatchList.setVisibility(View.INVISIBLE);
+                        }
+                    }); }
+
+                if(condicion > 0) {
+                    botonWatchList.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -160,22 +195,9 @@ public class PeliculaActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        int condicion = listaPelisMiradas.size();
-        if (condicion > 0)
-        {
 
-        botonWatchList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                movie.setVysor(correoUser);
-                databaseReference.child("WatchList").push().setValue(movie);
-                Toast.makeText(PeliculaActivity.this, "Se agregó esta película a su WatchList", Toast.LENGTH_SHORT).show();
-                botonWatchList.setVisibility(View.INVISIBLE);
-            }
-        }); }
 
-        else { botonWatchList.setVisibility(View.INVISIBLE);
-        }
+
 
 
         Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
@@ -203,9 +225,12 @@ public class PeliculaActivity extends AppCompatActivity {
 
     }
 
-    public void publicarImagen (String url){
-        Glide.with(getApplicationContext()).load(url).into(moviePoster);
-    }
+    //public void publicarImagen (String url){
+    //    Glide.with(getApplicationContext()).load(url).into(moviePoster);
+    //}
+
+
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallamovie, menu);

@@ -30,16 +30,18 @@ import java.util.ArrayList;
 public class MyReviews extends AppCompatActivity {
 
     Review[] misReviews;
-    int x = 0;
+    int x = 0; int CONDICION = 2;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String nombreFiltro = user.getEmail();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_reviews);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String nombreFiltro = user.getDisplayName();
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
         databaseReference.child("Reviews").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -51,6 +53,7 @@ public class MyReviews extends AppCompatActivity {
                     for(DataSnapshot children: dataSnapshot.getChildren()){
                         if (dataSnapshot.exists()){
                             final Review review = children.getValue(Review.class);
+                            String nombreRaro = children.getKey(); review.setNombreRaro(nombreRaro);
                             if (review.getAuthor().equals(nombreFiltro) ) { listaReview.add(review);}
                         }
                     }
@@ -59,7 +62,7 @@ public class MyReviews extends AppCompatActivity {
                     for (int x=0; x<longitudRW; x++){
                         misReviews[x] = (Review) listaReview.get(x); }
 
-                    ReviewAdapter reviewAdapter = new ReviewAdapter(misReviews, MyReviews.this);
+                    ReviewAdapter reviewAdapter = new ReviewAdapter(misReviews, MyReviews.this,CONDICION,databaseReference);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewMyReviews);
                     recyclerView.setAdapter(reviewAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(MyReviews.this));

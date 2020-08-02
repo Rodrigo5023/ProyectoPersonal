@@ -25,6 +25,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -36,8 +40,12 @@ public class BusquedaActivity extends AppCompatActivity {
     String query;
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
-    int x;
+    int x; int CONDICION = 1;
     RecyclerView recyclerView;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String correoUsuario = user.getEmail();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +93,8 @@ public class BusquedaActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,BusquedaActivity.this);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,BusquedaActivity.this,CONDICION,databaseReference,
+                                        correoUsuario);
                                 recyclerView = (RecyclerView) findViewById(R.id.recyclerViewBusqueda);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(BusquedaActivity.this));

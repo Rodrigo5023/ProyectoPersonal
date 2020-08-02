@@ -142,7 +142,8 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, EquipoDetallesActivity.this, CONDICION,databaseReference);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, EquipoDetallesActivity.this, CONDICION,databaseReference,
+                                        correoUsuario);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewEquipoMovies);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(EquipoDetallesActivity.this));
