@@ -31,9 +31,10 @@ public class MyReviews extends AppCompatActivity {
 
     Review[] misReviews;
     int x = 0; int CONDICION = 2;
+    Review review = new Review();
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    final String nombreFiltro = user.getEmail();
+    final String correoUsuario = user.getEmail();
     final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -52,9 +53,10 @@ public class MyReviews extends AppCompatActivity {
 
                     for(DataSnapshot children: dataSnapshot.getChildren()){
                         if (dataSnapshot.exists()){
-                            final Review review = children.getValue(Review.class);
+                            review = children.getValue(Review.class);
                             String nombreRaro = children.getKey(); review.setNombreRaro(nombreRaro);
-                            if (review.getAuthor().equals(nombreFiltro) ) { listaReview.add(review);}
+                            if (review.getAuthor().equals(correoUsuario) ) {
+                                listaReview.add(review);}
                         }
                     }
                     misReviews = new Review[longitudRW];

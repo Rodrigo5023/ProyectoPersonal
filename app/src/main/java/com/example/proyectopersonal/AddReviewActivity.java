@@ -46,7 +46,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 review.setContent(cuerpoReview);
                 databaseReference.child("Reviews").push().setValue(review);
                 Intent intent = new Intent(AddReviewActivity.this, PeliculaActivity.class);
-                intent.putExtra("idPelicula",idPelicula);
+                intent.putExtra("idMovie",idPelicula);
                 startActivity(intent);
 
             }
