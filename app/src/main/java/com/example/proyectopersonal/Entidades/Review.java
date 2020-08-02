@@ -7,6 +7,7 @@ public class Review {
     private String id;
     private String url;
     private String idPelicula;
+    private String nombreRaro;
 
     public String getAuthor() {
         return author;
@@ -46,5 +47,13 @@ public class Review {
 
     public void setIdPelicula(String idPelicula) {
         this.idPelicula = idPelicula;
+    }
+
+    public String getNombreRaro() {
+        return nombreRaro;
+    }
+
+    public void setNombreRaro(String nombreRaro) {
+        this.nombreRaro = nombreRaro;
     }
 }

@@ -2,6 +2,7 @@ package com.example.proyectopersonal.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.Detalles.PeliculaActivity;
+import com.example.proyectopersonal.PeliculasPopularesActivity;
 import com.example.proyectopersonal.R;
+import com.example.proyectopersonal.WatchListActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private static final String urlPhoto = " https://image.tmdb.org/t/p/w600_and_h900_bestv2";
 
+    DatabaseReference databaseReference;
+    int condicion;
     Movie[] listaMovie;
     Context contexto;
 
-    public MovieAdapter (Movie[] listaMovie, Context contexto) {
+    public MovieAdapter (Movie[] listaMovie, Context contexto,int condicion, DatabaseReference databaseReference) {
         this.listaMovie = listaMovie;
-        this.contexto = contexto; }
+        this.contexto = contexto;
+        this.condicion = condicion;
+        this.databaseReference = databaseReference;}
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
         public TextView nombreMovie;
@@ -35,6 +44,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public TextView rateMovie;
         public ImageView posterMovie;
         public Button botonDetalles;
+        public Button botonBorrar;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -43,7 +53,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             this.fechaEstrenoMovie = itemView.findViewById(R.id.textViewEstreno);
             this.rateMovie = itemView.findViewById(R.id.textViewRate);
             this.posterMovie = itemView.findViewById(R.id.imageViewPoster);
-            this.botonDetalles = itemView.findViewById(R.id.buttonDetalles);}
+            this.botonDetalles = itemView.findViewById(R.id.buttonDetalles);
+            this.botonBorrar = itemView.findViewById(R.id.buttonEliminarMovie);}
     }
 
 
@@ -73,6 +84,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     intent.putExtra("idMovie", idMovie);
                     contexto.startActivity(intent);}
             });
+
+            if (condicion == 1) {holder.botonBorrar.setVisibility(View.INVISIBLE);}
+            if (condicion == 2) {
+                holder.botonBorrar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseReference.child("WatchList").child(movie.getNombreRaro()).removeValue();
+                    }
+                });
+
+            }
 
 
     }

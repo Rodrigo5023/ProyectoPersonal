@@ -4,22 +4,24 @@ import java.util.ArrayList;
 
 public class Movie {
 
-    private String backdrop_path; //
+    private String backdrop_path;
     private Genero[] listaGeneros;
-    private String budget; //
-    private String homepage; //
-    private int id; //
-    private String original_language; //
-    private String original_title; //
-    private String overview;    //
-    private String poster_path;  //
-    private String release_date; //
-    private String runtime; //
-    private String status; //
-    private String tagline; //
-    private String vote_average; //
-    private String vote_count; //
-    private String vysor; //
+    private String budget;
+    private String homepage;
+    private int id;
+    private String original_language;
+    private String original_title;
+    private String overview;
+    private String poster_path;
+    private String release_date;
+    private String runtime;
+    private String status;
+    private String tagline;
+    private String vote_average;
+    private String vote_count;
+    private String vysor;
+    private String title;
+    private String nombreRaro;
 
 
     public String getBackdrop_path() {
@@ -148,5 +150,21 @@ public class Movie {
 
     public void setVysor(String vysor) {
         this.vysor = vysor;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getNombreRaro() {
+        return nombreRaro;
+    }
+
+    public void setNombreRaro(String nombreRaro) {
+        this.nombreRaro = nombreRaro;
     }
 }

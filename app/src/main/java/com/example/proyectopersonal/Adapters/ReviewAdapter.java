@@ -1,6 +1,7 @@
 package com.example.proyectopersonal.Adapters;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Review;
 import com.example.proyectopersonal.R;
+import com.google.firebase.database.DatabaseReference;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
     Review[] listaReview;
     Context contexto;
-    int condicionReview;
+    int condicion;
+    DatabaseReference databaseReference;
 
-    public ReviewAdapter (Review[] listaReview, Context contexto) {
+    public ReviewAdapter (Review[] listaReview, Context contexto, int condicion, DatabaseReference databaseReference) {
         this.listaReview = listaReview;
         this.contexto = contexto;
-        // this.condicionReview = condicionReview;
+        this.condicion = condicion;
+        this.databaseReference = databaseReference;
         }
 
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
@@ -35,7 +39,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             super(itemView);
             this.autorReview =itemView.findViewById(R.id.textViewAutorComentario);
             this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario);
-            // this.botonBorrar = itemView.findViewById(R.id.buttonBorrar);
+            this.botonBorrar = itemView.findViewById(R.id.buttonEliminarReview);
             }
     }
 
@@ -52,10 +56,16 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         String autorReview = review.getAuthor(); holder.autorReview.setText(autorReview);
         String cuerpoReview = review.getContent(); holder.cuerpoReview.setText(cuerpoReview);
 
-        //if (condicionReview == 1){
-        //    holder.botonBorrar.setOnClickListener();
-       //  }
+        if (condicion == 1) { holder.botonBorrar.setVisibility(View.INVISIBLE);}
+        if (condicion == 2) {
+            holder.botonBorrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    databaseReference.child("Reviews").child(review.getNombreRaro()).removeValue();
+                }
+            });
 
+        }
     }
 
     @Override

@@ -25,6 +25,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +43,13 @@ public class PeliculasTopActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
-    int x;
+    int x; int CONDICION = 1;
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+    String nombreUsuario = usuario.getDisplayName();
+    String correoUsuario = usuario.getEmail();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,31 +77,23 @@ public class PeliculasTopActivity extends AppCompatActivity {
                                     Movie movie = new Movie();
                                     JSONObject pelicula = (JSONObject) results.get(x);
                                     String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
-                                    Log.d("PeliculaID",  idMovie);
+                                    String titleMovie = pelicula.getString("title"); movie.setTitle(titleMovie);
                                     String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
-                                    Log.d("PeliculaTítulo",  tituloMovie);
                                     String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
                                     String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
                                     String lenguajeMovie = pelicula.getString("original_language"); movie.setOriginal_language(lenguajeMovie);
-                                    // String duracionMovie = pelicula.getString("runtime"); movie.setRuntime(Integer.valueOf(duracionMovie));
                                     String estrenoMovie = pelicula.getString("release_date"); movie.setRelease_date(estrenoMovie);
                                     String puntuacionMovie = pelicula.getString("vote_average"); movie.setVote_average(puntuacionMovie);
                                     String votosMovie = pelicula.getString("vote_count"); movie.setVote_count(votosMovie);
-                                    //String fraseMovie = pelicula.getString("tagline"); movie.setTagline(fraseMovie);
                                     listaMovies[x] = movie;
                                 }
-
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasTopActivity.this);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,PeliculasTopActivity.this,CONDICION,databaseReference);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewTop);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(PeliculasTopActivity.this));
-
-
                             }
 
                             catch (JSONException e) { e.printStackTrace(); }
-
-
                         }
                     },
                     new Response.ErrorListener() {

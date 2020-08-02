@@ -1,5 +1,6 @@
 package com.example.proyectopersonal.Detalles;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,10 +45,14 @@ import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.example.proyectopersonal.RecomendacionesActivity;
 import com.example.proyectopersonal.ReviewActivity;
+import com.example.proyectopersonal.WatchListActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -56,16 +61,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class PeliculaActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
+    ArrayList<Movie> listaPelisMiradas;
     Genero[] listaGeneros;
     String idPelicula;
     Movie movie;
+    final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
+    ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster);
 
-    // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    // final String nombreFiltro = user.getDisplayName();
-    // final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String correoUser = user.getEmail();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -88,16 +99,16 @@ public class PeliculaActivity extends AppCompatActivity {
                   movie = gson.fromJson(response,Movie.class);
 
                     // Revisar los nombres de los TextViews
-                    TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getOriginal_title());
+                    TextView movieTitulo = (TextView) findViewById(R.id.textViewTitulo); movieTitulo.setText(movie.getTitle());
                     TextView movieEstreno = (TextView) findViewById(R.id.textView5); movieEstreno.setText(movie.getRelease_date());
                     TextView movieTime = (TextView) findViewById(R.id.textViewDuracion); movieTime.setText(movie.getRuntime());
                     TextView movieRate = (TextView) findViewById(R.id.textViewPopulaaridad); movieRate.setText(movie.getVote_average());
                     TextView movieFrase = (TextView) findViewById(R.id.textViewFrase); movieFrase.setText(movie.getTagline());
                     TextView movieOverview = (TextView) findViewById(R.id.textViewDescripcion); movieOverview.setText(movie.getOverview());
 
-                    ImageView moviePoster = (ImageView) findViewById(R.id.imageViewPoster); String poster = movie.getPoster_path();
+                    String poster = movie.getPoster_path();
                     String urlPoster = movieDB.getUrlPhoto() + poster;
-                    //Glide.with(PeliculaActivity.this).load(urlPoster).into(moviePoster);
+                    // publicarImagen(urlPoster);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -128,17 +139,44 @@ public class PeliculaActivity extends AppCompatActivity {
             }); queueMovies.add(stringRequest);
         }
 
-        /* final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
+        // Agregar validacion de película
+
+        databaseReference.child("WatchList").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for(DataSnapshot children: dataSnapshot.getChildren()){
+                        if (dataSnapshot.exists()){
+                            final Movie movie1 = children.getValue(Movie.class);
+                            boolean cond1 = movie1.getVysor().equals(correoUser);
+                            boolean cond2 = movie1.getId() == movie.getId();
+                            if (cond1 & cond2 ) { listaPelisMiradas.add(movie);}
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        int condicion = listaPelisMiradas.size();
+        if (condicion > 0)
+        {
+
         botonWatchList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movie.setVysor(nombreFiltro);
+                movie.setVysor(correoUser);
                 databaseReference.child("WatchList").push().setValue(movie);
                 Toast.makeText(PeliculaActivity.this, "Se agregó esta película a su WatchList", Toast.LENGTH_SHORT).show();
                 botonWatchList.setVisibility(View.INVISIBLE);
             }
-        });
-       */
+        }); }
+
+        else { botonWatchList.setVisibility(View.INVISIBLE);
+        }
+
 
         Button botonRecomendaciones = (Button) findViewById(R.id.Recomendaciones);
         botonRecomendaciones.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +201,10 @@ public class PeliculaActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void publicarImagen (String url){
+        Glide.with(getApplicationContext()).load(url).into(moviePoster);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

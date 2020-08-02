@@ -1,5 +1,6 @@
 package com.example.proyectopersonal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,7 +63,28 @@ public class MainActivity extends AppCompatActivity {
                         .setAvailableProviders(listaProveedores)
                         .build(),
                 1);
+    }
 
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                Intent intent = new Intent(MainActivity.this, PeliculasPopularesActivity.class);
+                startActivity(intent);
+            }
+
+
+            else {
+
+                Log.d("infoApp","inicio erroneo");
+            }
+
+        }
 
     }
+
 }
+

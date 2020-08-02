@@ -27,15 +27,15 @@ import java.util.ArrayList;
 public class WatchListActivity extends AppCompatActivity {
 
     Movie[] listaPelisMiradas;
-    int x = 0;
+    int x = 0; int CONDICION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_list);
 
-        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        // final String nombreFiltro = user.getDisplayName();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String nombreFiltro = user.getEmail();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.child("WatchList").addValueEventListener(new ValueEventListener() {
@@ -49,7 +49,8 @@ public class WatchListActivity extends AppCompatActivity {
                     for(DataSnapshot children: dataSnapshot.getChildren()){
                         if (dataSnapshot.exists()){
                             final Movie movie = children.getValue(Movie.class);
-                            if (movie.getVysor().equals("UsuarioPrueba1") ) { listaWatchList.add(movie);}
+                            String nombreRaro = children.getKey(); movie.setNombreRaro(nombreRaro);
+                            if (movie.getVysor().equals(nombreFiltro) ) { listaWatchList.add(movie);}
                         }
                     }
                     listaPelisMiradas = new Movie[longitudWL];
@@ -57,7 +58,7 @@ public class WatchListActivity extends AppCompatActivity {
                     for (int x=0; x<longitudWL; x++){
                         listaPelisMiradas[x] = (Movie) listaWatchList.get(x); }
 
-                    MovieAdapter movieAdapter = new MovieAdapter(listaPelisMiradas, WatchListActivity.this);
+                    MovieAdapter movieAdapter = new MovieAdapter(listaPelisMiradas, WatchListActivity.this,CONDICION,databaseReference);
                     RecyclerView recyclerView = findViewById(R.id.recyclerViewWatchList);
                     recyclerView.setAdapter(movieAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(WatchListActivity.this));

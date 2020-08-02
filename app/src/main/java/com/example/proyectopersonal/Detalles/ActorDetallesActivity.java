@@ -20,6 +20,10 @@ import com.example.proyectopersonal.PeliculasEstrenoActivity;
 import com.example.proyectopersonal.PeliculasPopularesActivity;
 import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import android.content.Context;
@@ -49,8 +53,15 @@ import java.util.List;
 public class ActorDetallesActivity extends AppCompatActivity {
 
     Movie[] listaMovies;
-    int x;
+    int x; int CONDICION = 1;
     MovieDB movieDB = new MovieDB();
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+    String nombreUsuario = usuario.getDisplayName();
+    String correoUsuario = usuario.getEmail();
+
+    ImageView moviePoster = (ImageView) findViewById(R.id.imageViewFotoActor);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +92,8 @@ public class ActorDetallesActivity extends AppCompatActivity {
                             String poster = actor.getProfile_path();
                             String urlPoster = movieDB.getUrlPhoto() + poster;
                             String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
-                            //if (poster != null) { Glide.with(ActorDetallesActivity.this).load(urlPoster).into(fotoActor);}
-                            //else { Glide.with(ActorDetallesActivity.this).load(urlNull).into(fotoActor); }
+                            //if (actor.getProfile_path().equals("")){publicarImagen(urlNull);}
+                            //else { publicarImagen(urlPoster);}
 
                         }
                     },
@@ -143,7 +154,7 @@ public class ActorDetallesActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, ActorDetallesActivity.this);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies, ActorDetallesActivity.this,CONDICION,databaseReference);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewActorMovies);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(ActorDetallesActivity.this));
@@ -168,6 +179,9 @@ public class ActorDetallesActivity extends AppCompatActivity {
 
     }
 
+    public void publicarImagen (String url){
+        Glide.with(getApplicationContext()).load(url).into(moviePoster);
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);

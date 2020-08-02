@@ -12,20 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
         <activity android:name=".BusquedaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/searchable"/>
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@layout/searchable" />
         </activity>
-
         <activity android:name=".MyReviews" />
         <activity android:name=".AddReviewActivity" />
         <activity android:name=".WatchListActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity android:name=".RecomendacionesActivity" />
         <activity android:name=".Detalles.EquipoDetallesActivity" />
         <activity android:name=".Detalles.ActorDetallesActivity" />
@@ -36,13 +42,7 @@
         <activity android:name=".PeliculasEstrenoActivity" />
         <activity android:name=".PeliculasTopActivity" />
         <activity android:name=".Detalles.PeliculaActivity" />
-        <activity android:name=".PeliculasPopularesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".PeliculasPopularesActivity"/>
     </application>
 
 </manifest>

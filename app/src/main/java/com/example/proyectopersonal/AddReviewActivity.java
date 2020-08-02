@@ -30,12 +30,10 @@ public class AddReviewActivity extends AppCompatActivity {
         idPelicula = getIntent().getStringExtra("idMovie");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String nombreFiltro = user.getDisplayName();
+        final String nombreFiltro = user.getEmail();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        EditText cuerpoComentario =  (EditText) findViewById(R.id.editTextAdd);
-        String cuerpoReview = cuerpoComentario.getText().toString();
-        review.setContent(cuerpoReview);
+
         review.setAuthor(nombreFiltro);
         review.setIdPelicula(idPelicula);
 
@@ -43,6 +41,9 @@ public class AddReviewActivity extends AppCompatActivity {
         botonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText cuerpoComentario =  (EditText) findViewById(R.id.editTextAdd);
+                String cuerpoReview = cuerpoComentario.getText().toString();
+                review.setContent(cuerpoReview);
                 databaseReference.child("Reviews").push().setValue(review);
                 Intent intent = new Intent(AddReviewActivity.this, PeliculaActivity.class);
                 intent.putExtra("idPelicula",idPelicula);

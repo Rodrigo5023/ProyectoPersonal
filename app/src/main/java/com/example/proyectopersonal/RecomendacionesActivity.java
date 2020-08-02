@@ -25,6 +25,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +43,12 @@ public class RecomendacionesActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
-    int x;
+    int x; int CONDICION = 1;
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+    String nombreUsuario = usuario.getDisplayName();
+    String correoUsuario = usuario.getEmail();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +90,7 @@ public class RecomendacionesActivity extends AppCompatActivity {
                                     listaMovies[x] = movie;
                                 }
 
-                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,RecomendacionesActivity.this);
+                                final MovieAdapter movieAdapter = new MovieAdapter(listaMovies,RecomendacionesActivity.this,CONDICION, databaseReference);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewRecomendaciones);
                                 recyclerView.setAdapter(movieAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(RecomendacionesActivity.this));

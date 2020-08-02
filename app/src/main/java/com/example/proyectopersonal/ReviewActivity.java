@@ -27,6 +27,10 @@ import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Adapters.ReviewAdapter;
 import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.Entidades.Review;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,8 +45,12 @@ public class ReviewActivity extends AppCompatActivity {
 
     MovieDB movieDB = new MovieDB();
     Review[] listaReviews;
-    int x;
+    int x; int CONDICION = 1;
     String idPelicula;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String nombreFiltro = user.getEmail();
+    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +85,7 @@ public class ReviewActivity extends AppCompatActivity {
                                     listaReviews[x] = review;
                                 }
 
-                                final ReviewAdapter reviewAdapter = new ReviewAdapter(listaReviews,ReviewActivity.this);
+                                final ReviewAdapter reviewAdapter = new ReviewAdapter(listaReviews,ReviewActivity.this,CONDICION,databaseReference);
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewReview);
                                 recyclerView.setAdapter(reviewAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(ReviewActivity.this));
