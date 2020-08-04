@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.AddReviewActivity;
+import com.example.proyectopersonal.CastActivity;
+import com.example.proyectopersonal.CrewActivity;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Movie;
@@ -24,6 +26,7 @@ import com.example.proyectopersonal.PeliculasPopularesActivity;
 import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
 import com.example.proyectopersonal.RecomendacionesActivity;
+import com.example.proyectopersonal.ReviewActivity;
 import com.example.proyectopersonal.WatchListActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,6 +67,8 @@ public class EquipoDetallesActivity extends AppCompatActivity {
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     String nombreUsuario = usuario.getDisplayName();
     String correoUsuario = usuario.getEmail();
+    String idPelicula;
+    String nombrePelicula;
 
 
     @Override
@@ -72,6 +77,8 @@ public class EquipoDetallesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_equipo_detalles);
 
         final String idDirector = getIntent().getStringExtra("idDirector");
+        idPelicula = getIntent().getStringExtra("idMovie");
+        nombrePelicula = getIntent().getStringExtra("nombrePelicula");
 
 
         // OBTENER EQUIPO
@@ -183,20 +190,31 @@ public class EquipoDetallesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.PeliculasPopulares:
-                startActivity(new Intent(EquipoDetallesActivity.this, PeliculasPopularesActivity.class));
+            case R.id.PeliculaActores:
+                Intent intent1 = new Intent(EquipoDetallesActivity.this, CastActivity.class);
+                String idMovie1 = String.valueOf(idPelicula);
+                intent1.putExtra("idMovie", idMovie1);
+                intent1.putExtra("nombrePelicula", nombrePelicula);startActivity(intent1);
+
                 return true;
-            case R.id.PeliculasRateadas:
-                startActivity(new Intent(EquipoDetallesActivity.this, PeliculasTopActivity.class));
+            case R.id.PeliculaDirector:
+                Intent intent2 = new Intent(EquipoDetallesActivity.this, CrewActivity.class);
+                String idMovie2 = String.valueOf(idPelicula);
+                intent2.putExtra("idMovie", idMovie2);
+                intent2.putExtra("nombrePelicula", nombrePelicula);startActivity(intent2);
                 return true;
-            case R.id.PeliculasEstreno:
-                startActivity(new Intent(EquipoDetallesActivity.this, PeliculasEstrenoActivity.class));
+            case R.id.PeliculaRecomendaciones:
+                Intent intent3 = new Intent(EquipoDetallesActivity.this, RecomendacionesActivity.class);
+                String idMovie = String.valueOf(idPelicula);
+                intent3.putExtra("idMovie", idMovie);
+                intent3.putExtra("nombrePelicula", nombrePelicula);startActivity(intent3);
                 return true;
-            case R.id.WatchList:
-                startActivity(new Intent(EquipoDetallesActivity.this, WatchListActivity.class));
-                return true;
-            case R.id.Reviews:
-                startActivity(new Intent(EquipoDetallesActivity.this, MyReviews.class));
+            case R.id.PeliculaReviews:
+                Intent intent4 = new Intent(EquipoDetallesActivity.this, ReviewActivity.class);
+                String idMovie4 = String.valueOf(idPelicula);
+                intent4.putExtra("idMovie", idMovie4);
+                intent4.putExtra("nombrePelicula", nombrePelicula);
+                startActivity(intent4);
                 return true;
             case R.id.CerrarSesion:
                 FirebaseAuth.getInstance().signOut(); finish();
@@ -204,7 +222,6 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                 return true;
         }
         return onOptionsItemSelected(item);}
-
 
     public boolean isInternetAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
 import com.example.proyectopersonal.Adapters.ReviewAdapter;
+import com.example.proyectopersonal.Detalles.PeliculaActivity;
 import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.Entidades.Review;
 import com.google.firebase.auth.FirebaseAuth;
@@ -122,19 +123,29 @@ public class ReviewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.PeliculaActores:
                 Intent intent1 = new Intent(ReviewActivity.this, CastActivity.class);
-                intent1.putExtra("idMovie", idPelicula); startActivity(intent1);
+                String idMovie1 = String.valueOf(idPelicula);
+                intent1.putExtra("idMovie", idMovie1);
+                intent1.putExtra("nombrePelicula", nombrePelicula);startActivity(intent1);
+
                 return true;
             case R.id.PeliculaDirector:
                 Intent intent2 = new Intent(ReviewActivity.this, CrewActivity.class);
-                intent2.putExtra("idMovie", idPelicula); startActivity(intent2);
+                String idMovie2 = String.valueOf(idPelicula);
+                intent2.putExtra("idMovie", idMovie2);
+                intent2.putExtra("nombrePelicula", nombrePelicula);startActivity(intent2);
                 return true;
             case R.id.PeliculaRecomendaciones:
                 Intent intent3 = new Intent(ReviewActivity.this, RecomendacionesActivity.class);
-                intent3.putExtra("idMovie", idPelicula); startActivity(intent3);
+                String idMovie = String.valueOf(idPelicula);
+                intent3.putExtra("idMovie", idMovie);
+                intent3.putExtra("nombrePelicula", nombrePelicula);startActivity(intent3);
                 return true;
             case R.id.PeliculaReviews:
                 Intent intent4 = new Intent(ReviewActivity.this, ReviewActivity.class);
-                intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
+                String idMovie4 = String.valueOf(idPelicula);
+                intent4.putExtra("idMovie", idMovie4);
+                intent4.putExtra("nombrePelicula", nombrePelicula);
+                startActivity(intent4);
                 return true;
             case R.id.CerrarSesion:
                 FirebaseAuth.getInstance().signOut(); finish();

@@ -137,6 +137,7 @@ public class PeliculaActivity extends AppCompatActivity {
                             String idMovie = genres.getString("id"); genero.setId(Integer.valueOf(idMovie));
                             String nombre = genres.getString("name"); genero.setName(nombre);
                             listaGeneros[x] = genero; }
+                        nombrePelicula = movie.getTitle();
 
                         final GeneroAdapter generoAdapter = new GeneroAdapter(listaGeneros, PeliculaActivity.this);
                         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
@@ -203,7 +204,7 @@ public class PeliculaActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        nombrePelicula = movie.getTitle();
+
 
 
 
@@ -253,17 +254,21 @@ public class PeliculaActivity extends AppCompatActivity {
             case R.id.PeliculaActores:
                 Intent intent1 = new Intent(PeliculaActivity.this, CastActivity.class);
                 String idMovie1 = String.valueOf(idPelicula);
-                intent1.putExtra("idMovie", idMovie1); startActivity(intent1);
+                intent1.putExtra("idMovie", idMovie1);
+                intent1.putExtra("nombrePelicula", nombrePelicula);startActivity(intent1);
+
                 return true;
             case R.id.PeliculaDirector:
                 Intent intent2 = new Intent(PeliculaActivity.this, CrewActivity.class);
                 String idMovie2 = String.valueOf(idPelicula);
-                intent2.putExtra("idMovie", idMovie2); startActivity(intent2);
+                intent2.putExtra("idMovie", idMovie2);
+                intent2.putExtra("nombrePelicula", nombrePelicula);startActivity(intent2);
                 return true;
             case R.id.PeliculaRecomendaciones:
                 Intent intent3 = new Intent(PeliculaActivity.this, RecomendacionesActivity.class);
                 String idMovie = String.valueOf(idPelicula);
-                intent3.putExtra("idMovie", idMovie); startActivity(intent3);
+                intent3.putExtra("idMovie", idMovie);
+                intent3.putExtra("nombrePelicula", nombrePelicula);startActivity(intent3);
                 return true;
             case R.id.PeliculaReviews:
                 Intent intent4 = new Intent(PeliculaActivity.this, ReviewActivity.class);
@@ -271,6 +276,10 @@ public class PeliculaActivity extends AppCompatActivity {
                 intent4.putExtra("idMovie", idMovie4);
                 intent4.putExtra("nombrePelicula", nombrePelicula);
                 startActivity(intent4);
+                return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(PeliculaActivity.this, MainActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}
