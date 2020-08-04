@@ -7,185 +7,213 @@
     tools:context=".Detalles.PeliculaActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <ImageView
-        android:id="@+id/imageViewPosterMovie"
-        android:layout_width="177dp"
-        android:layout_height="308dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="-93dp">
 
-    <TextView
-        android:id="@+id/textViewTitulo"
-        android:layout_width="199dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.544"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="150dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="24dp"
-        android:text="Fecha De Estreno:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
+            <ImageView
+                android:id="@+id/imageViewPosterMovie"
+                android:layout_width="177dp"
+                android:layout_height="308dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="150dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <TextView
+                android:id="@+id/textViewTitulo"
+                android:layout_width="199dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="76dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="12dp"
-        android:text="Duración:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="150dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="24dp"
+                android:text="Fecha De Estreno:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
 
-    <TextView
-        android:id="@+id/textViewPopulaaridad"
-        android:layout_width="67dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="150dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="12dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <Button
-        android:id="@+id/buttonWatchList"
-        android:layout_width="157dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginBottom="148dp"
-        android:text="Agregar a WatchList"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="76dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:text="Duración:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <TextView
-        android:id="@+id/textViewDuracion"
-        android:layout_width="76dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/textViewPopulaaridad"
+                android:layout_width="51dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="52dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerViewGeneros"
+                app:layout_constraintStart_toEndOf="@+id/textView8" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="59dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="20dp"
-        android:text="Puntaje:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/textView17"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie" />
+            <Button
+                android:id="@+id/buttonWatchList"
+                android:layout_width="157dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Agregar a WatchList"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion" />
 
-    <TextView
-        android:id="@+id/textViewFrase"
-        android:layout_width="282dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPosterMovie" />
+            <TextView
+                android:id="@+id/textViewDuracion"
+                android:layout_width="76dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.333"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewGeneros"
-        android:layout_width="167dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewFrase"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="59dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginBottom="32dp"
+                android:text="Puntaje:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintBottom_toTopOf="@+id/textView17"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie" />
 
-    <Button
-        android:id="@+id/buttonNuevoReview"
-        android:layout_width="134dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="12dp"
-        android:text="Hacer Review"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.806"
-        app:layout_constraintStart_toEndOf="@+id/buttonWatchList"
-        app:layout_constraintTop_toBottomOf="@+id/Recomendaciones" />
+            <TextView
+                android:id="@+id/textViewFrase"
+                android:layout_width="305dp"
+                android:layout_height="51dp"
+                android:layout_marginTop="12dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewPosterMovie" />
 
-    <Button
-        android:id="@+id/Recomendaciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:text="Recomendaciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGeneros"
+                android:layout_width="167dp"
+                android:layout_height="64dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/textViewFrase"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie" />
 
-    <TextView
-        android:id="@+id/textViewDescripcion"
-        android:layout_width="378dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFrase" />
+            <Button
+                android:id="@+id/buttonNuevoReview"
+                android:layout_width="134dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="12dp"
+                android:text="Hacer Review"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonWatchList" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="67dp"
-        android:layout_height="24dp"
-        android:text="/10"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/textView17"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewPopulaaridad"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDuracion"
-        app:layout_constraintVertical_bias="0.545" />
+            <Button
+                android:id="@+id/Recomendaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Recomendaciones"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintStart_toEndOf="@+id/buttonNuevoReview"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWL" />
 
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Géneros Cinematográficos"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewGeneros"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPopulaaridad"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/textViewDescripcion"
+                android:layout_width="344dp"
+                android:layout_height="176dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFrase" />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="67dp"
+                android:layout_height="24dp"
+                android:text="/10"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintBottom_toTopOf="@+id/textView17"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewPopulaaridad"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDuracion"
+                app:layout_constraintVertical_bias="0.179" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Géneros Cinematográficos"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerViewGeneros"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterMovie"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPopulaaridad"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textViewWL"
+                android:layout_width="170dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/buttonWatchList"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

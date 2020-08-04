@@ -139,6 +139,10 @@ public class RecomendacionesActivity extends AppCompatActivity {
             case R.id.Reviews:
                 startActivity(new Intent(RecomendacionesActivity.this, MyReviews.class));
                 return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(RecomendacionesActivity.this, MainActivity.class));
+                return true;
         }
         return onOptionsItemSelected(item);}
 

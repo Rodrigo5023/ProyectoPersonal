@@ -111,8 +111,8 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        //SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
 
     }
@@ -134,6 +134,10 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
                 return true;
             case R.id.Reviews:
                 startActivity(new Intent(PeliculasEstrenoActivity.this, MyReviews.class));
+                return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(PeliculasEstrenoActivity.this, MainActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

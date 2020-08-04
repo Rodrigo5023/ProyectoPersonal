@@ -12,6 +12,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.proyectopersonal.Adapters.MovieAdapter;
+import com.example.proyectopersonal.AddReviewActivity;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Movie;
@@ -196,6 +197,10 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                 return true;
             case R.id.Reviews:
                 startActivity(new Intent(EquipoDetallesActivity.this, MyReviews.class));
+                return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(EquipoDetallesActivity.this, MainActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

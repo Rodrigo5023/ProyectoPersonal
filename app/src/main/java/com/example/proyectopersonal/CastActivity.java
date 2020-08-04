@@ -29,6 +29,7 @@ import com.example.proyectopersonal.Detalles.PeliculaActivity;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Movie;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -130,6 +131,10 @@ public class CastActivity extends AppCompatActivity {
             case R.id.PeliculaReviews:
                 Intent intent4 = new Intent(CastActivity.this, ReviewActivity.class);
                 intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
+                return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(CastActivity.this, MainActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

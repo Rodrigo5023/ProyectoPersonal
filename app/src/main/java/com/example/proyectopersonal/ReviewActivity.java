@@ -134,6 +134,10 @@ public class ReviewActivity extends AppCompatActivity {
                 Intent intent4 = new Intent(ReviewActivity.this, ReviewActivity.class);
                 intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
                 return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(ReviewActivity.this, MainActivity.class));
+                return true;
         }
         return onOptionsItemSelected(item);}
 

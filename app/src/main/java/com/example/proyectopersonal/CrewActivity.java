@@ -26,6 +26,7 @@ import com.example.proyectopersonal.Adapters.CastAdapter;
 import com.example.proyectopersonal.Adapters.CrewAdapter;
 import com.example.proyectopersonal.Entidades.Cast;
 import com.example.proyectopersonal.Entidades.Crew;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -128,6 +129,10 @@ public class CrewActivity extends AppCompatActivity {
             case R.id.PeliculaReviews:
                 Intent intent4 = new Intent(CrewActivity.this, ReviewActivity.class);
                 intent4.putExtra("idMovie", idPelicula); startActivity(intent4);
+                return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(CrewActivity.this, MainActivity.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

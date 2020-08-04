@@ -29,22 +29,27 @@
   <item
       android:id="@+id/WatchList"
       android:icon="@drawable/ic_action_name"
-      android:title="WatchList"
+      android:title=" Mi WatchList"
       app:showAsAction="withText" />
 
   <item
       android:id="@+id/Reviews"
       android:icon="@drawable/ic_action_name"
-      android:title="Reviews"
+      android:title="Mis Reviews"
       app:showAsAction="withText" />
 
-
-
+  <item
+      android:id="@+id/CerrarSesion"
+      android:icon="@android:drawable/ic_lock_power_off"
+      android:title="CerrarSesion"
+      app:showAsAction="ifRoom" />
   <item
       android:id="@+id/app_bar_search"
       android:icon="@drawable/ic_search_black_24dp"
       android:title="Search"
       app:actionViewClass="android.widget.SearchView"
       app:showAsAction="ifRoom" />
+
+
 
 </menu>

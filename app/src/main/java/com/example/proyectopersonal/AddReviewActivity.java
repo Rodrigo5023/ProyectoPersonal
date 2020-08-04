@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.jetbrains.annotations.NotNull;
 
 public class AddReviewActivity extends AppCompatActivity {
 
@@ -58,4 +62,36 @@ public class AddReviewActivity extends AppCompatActivity {
 
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.PeliculasPopulares:
+                startActivity(new Intent(AddReviewActivity.this, PeliculasPopularesActivity.class));
+                return true;
+            case R.id.PeliculasRateadas:
+                startActivity(new Intent(AddReviewActivity.this, PeliculasTopActivity.class));
+                return true;
+            case R.id.PeliculasEstreno:
+                startActivity(new Intent(AddReviewActivity.this, PeliculasEstrenoActivity.class));
+                return true;
+            case R.id.WatchList:
+                startActivity(new Intent(AddReviewActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(AddReviewActivity.this, MyReviews.class));
+                return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(AddReviewActivity.this, MainActivity.class));
+                return true;
+
+        }
+        return onOptionsItemSelected(item);}
+
 }

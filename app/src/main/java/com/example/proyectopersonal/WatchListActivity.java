@@ -97,6 +97,10 @@ public class WatchListActivity extends AppCompatActivity {
             case R.id.Reviews:
                 startActivity(new Intent(WatchListActivity.this, MyReviews.class));
                 return true;
+            case R.id.CerrarSesion:
+                FirebaseAuth.getInstance().signOut(); finish();
+                startActivity(new Intent(WatchListActivity.this, MainActivity.class));
+                return true;
         }
         return onOptionsItemSelected(item);}
 

@@ -6,6 +6,18 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/textView3"
+        android:layout_width="446dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#1B1818"
+        android:backgroundTint="#171515"
+        android:text="_________________________________________________________________________"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEliminarReview"
+        tools:layout_editor_absoluteX="-12dp" />
+
+    <TextView
         android:id="@+id/textViewCuerpoComentario"
         android:layout_width="323dp"
         android:layout_height="81dp"
@@ -47,6 +59,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="20dp"
         android:text="Autor: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toTopOf="@+id/textViewCuerpoComentario"
         app:layout_constraintEnd_toStartOf="@+id/textViewAutorComentario"
         app:layout_constraintHorizontal_bias="0.333"

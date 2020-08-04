@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textViewAdd"
-        android:layout_width="375dp"
-        android:layout_height="26dp"
+        android:layout_width="298dp"
+        android:layout_height="23dp"
         android:layout_marginTop="16dp"
         android:text="Agrege Su Review: "
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,8 +19,8 @@
 
     <EditText
         android:id="@+id/editTextAdd"
-        android:layout_width="375dp"
-        android:layout_height="150dp"
+        android:layout_width="306dp"
+        android:layout_height="129dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"

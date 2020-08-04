@@ -62,6 +62,7 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -175,6 +176,8 @@ public class PeliculaActivity extends AppCompatActivity {
                 final Button botonWatchList = (Button) findViewById(R.id.buttonWatchList);
                 if (condicion == 0)
                 {
+                    TextView textViewWL = (TextView) findViewById(R.id.textViewWL);
+                    textViewWL.setText("");
 
                     botonWatchList.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -189,6 +192,8 @@ public class PeliculaActivity extends AppCompatActivity {
 
                 if(condicion > 0) {
                     botonWatchList.setVisibility(View.INVISIBLE);
+                    TextView textViewWL = (TextView) findViewById(R.id.textViewWL);
+                    textViewWL.setText("Esta película ya se encuentra en su WatchList");
                 }
             }
 
