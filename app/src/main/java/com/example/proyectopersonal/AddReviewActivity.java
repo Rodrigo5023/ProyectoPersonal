@@ -24,6 +24,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
     Review review = new Review();
     String idPelicula;
+    String nombrePelicula;
 
 
     @Override
@@ -32,19 +33,20 @@ public class AddReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_review);
 
         idPelicula = getIntent().getStringExtra("idMovie");
+        nombrePelicula = getIntent().getStringExtra("nombrePelicula");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String nombreFiltro = user.getEmail();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-        review.setAuthor(nombreFiltro);
-        review.setIdPelicula(idPelicula);
-
         Button botonAgregar = (Button) findViewById(R.id.buttonAdd);
         botonAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                review.setAuthor(nombreFiltro);
+                review.setIdPelicula(nombrePelicula);
                 EditText cuerpoComentario =  (EditText) findViewById(R.id.editTextAdd);
                 String cuerpoReview = cuerpoComentario.getText().toString();
                 review.setContent(cuerpoReview);

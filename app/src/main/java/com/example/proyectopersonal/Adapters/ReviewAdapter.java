@@ -34,12 +34,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         public TextView autorReview;
         public TextView cuerpoReview;
         public Button botonBorrar;
+        public TextView nombrePelicula;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
             this.autorReview =itemView.findViewById(R.id.textViewAutorComentario);
             this.cuerpoReview = itemView.findViewById(R.id.textViewCuerpoComentario);
             this.botonBorrar = itemView.findViewById(R.id.buttonEliminarReview);
+            this.nombrePelicula = itemView.findViewById(R.id.textViewPeliMovie);
             }
     }
 
@@ -53,6 +55,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(ReviewViewHolder holder, int position) {
         final Review review = listaReview[position];
+        String movieReview = review.getNombrePelícula(); holder.nombrePelicula.setText(movieReview);
         String autorReview = review.getAuthor(); holder.autorReview.setText(autorReview);
         String cuerpoReview = review.getContent(); holder.cuerpoReview.setText(cuerpoReview);
 

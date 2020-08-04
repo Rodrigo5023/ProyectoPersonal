@@ -46,7 +46,7 @@ public class ReviewActivity extends AppCompatActivity {
     MovieDB movieDB = new MovieDB();
     Review[] listaReviews;
     int x; int CONDICION = 1;
-    String idPelicula;
+    String idPelicula; String nombrePelicula;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String nombreFiltro = user.getEmail();
@@ -58,6 +58,7 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
        idPelicula = getIntent().getStringExtra("idMovie");
+        nombrePelicula = getIntent().getStringExtra("nombrePelicula");
 
         // REVIEWS DE LA PELICULA
         if(isInternetAvailable()) {
@@ -82,6 +83,7 @@ public class ReviewActivity extends AppCompatActivity {
                                     String autorReview = revius.getString("author"); review.setAuthor(autorReview);
                                     String cuerpoReview = revius.getString("content"); review.setContent(cuerpoReview);
                                     String urlReview = revius.getString("url"); review.setUrl(urlReview);
+                                    review.setNombrePelícula(nombrePelicula);
                                     listaReviews[x] = review;
                                 }
 

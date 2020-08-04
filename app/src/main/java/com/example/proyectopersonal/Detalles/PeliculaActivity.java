@@ -76,6 +76,7 @@ public class PeliculaActivity extends AppCompatActivity {
     Movie movie;
     int condicion;
     String conditionX;
+    String nombrePelicula;
 
 
 
@@ -136,6 +137,7 @@ public class PeliculaActivity extends AppCompatActivity {
                             String idMovie = genres.getString("id"); genero.setId(Integer.valueOf(idMovie));
                             String nombre = genres.getString("name"); genero.setName(nombre);
                             listaGeneros[x] = genero; }
+
                         final GeneroAdapter generoAdapter = new GeneroAdapter(listaGeneros, PeliculaActivity.this);
                         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
                         recyclerView.setAdapter(generoAdapter);
@@ -201,6 +203,7 @@ public class PeliculaActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
+        nombrePelicula = movie.getTitle();
 
 
 
@@ -224,6 +227,7 @@ public class PeliculaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PeliculaActivity.this, AddReviewActivity.class);
                 intent.putExtra("idMovie", idPelicula);
+                intent.putExtra("nombrePelicula",movie.getTitle());
                 startActivity(intent);
             }
         });
@@ -264,7 +268,9 @@ public class PeliculaActivity extends AppCompatActivity {
             case R.id.PeliculaReviews:
                 Intent intent4 = new Intent(PeliculaActivity.this, ReviewActivity.class);
                 String idMovie4 = String.valueOf(idPelicula);
-                intent4.putExtra("idMovie", idMovie4); startActivity(intent4);
+                intent4.putExtra("idMovie", idMovie4);
+                intent4.putExtra("nombrePelicula", nombrePelicula);
+                startActivity(intent4);
                 return true;
         }
         return onOptionsItemSelected(item);}

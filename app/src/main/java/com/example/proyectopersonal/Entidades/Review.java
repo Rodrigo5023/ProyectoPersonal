@@ -8,6 +8,7 @@ public class Review {
     private String url;
     private String idPelicula;
     private String nombreRaro;
+    private String nombrePelícula;
 
     public String getAuthor() {
         return author;
@@ -55,5 +56,13 @@ public class Review {
 
     public void setNombreRaro(String nombreRaro) {
         this.nombreRaro = nombreRaro;
+    }
+
+    public String getNombrePelícula() {
+        return nombrePelícula;
+    }
+
+    public void setNombrePelícula(String nombrePelícula) {
+        this.nombrePelícula = nombrePelícula;
     }
 }
