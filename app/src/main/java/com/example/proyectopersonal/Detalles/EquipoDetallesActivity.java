@@ -17,10 +17,13 @@ import com.example.proyectopersonal.Entidades.Crew;
 import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.MainActivity;
 import com.example.proyectopersonal.MovieDB;
+import com.example.proyectopersonal.MyReviews;
 import com.example.proyectopersonal.PeliculasEstrenoActivity;
 import com.example.proyectopersonal.PeliculasPopularesActivity;
 import com.example.proyectopersonal.PeliculasTopActivity;
 import com.example.proyectopersonal.R;
+import com.example.proyectopersonal.RecomendacionesActivity;
+import com.example.proyectopersonal.WatchListActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -60,7 +63,7 @@ public class EquipoDetallesActivity extends AppCompatActivity {
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
     String nombreUsuario = usuario.getDisplayName();
     String correoUsuario = usuario.getEmail();
-    ImageView moviePoster = (ImageView) findViewById(R.id.imageViewFotoEquipo);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +91,7 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                             ImageView fotoActor = (ImageView) findViewById(R.id.imageViewFotoEquipo); String poster = actor.getProfile_path();
                             String urlPoster = movieDB.getUrlPhoto() + poster;
                             String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
-                            if (actor.getProfile_path().equals("")){publicarImagen(urlNull);}
+                            if (actor.getProfile_path() == null){publicarImagen(urlNull);}
                             else { publicarImagen(urlPoster);}
 
                         }
@@ -168,7 +171,7 @@ public class EquipoDetallesActivity extends AppCompatActivity {
     }
 
     public void publicarImagen (String url){
-        Glide.with(getApplicationContext()).load(url).into(moviePoster);
+        Glide.with(getApplicationContext()).load(url).into((ImageView) findViewById(R.id.imageViewFotoEquipo));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -187,6 +190,12 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                 return true;
             case R.id.PeliculasEstreno:
                 startActivity(new Intent(EquipoDetallesActivity.this, PeliculasEstrenoActivity.class));
+                return true;
+            case R.id.WatchList:
+                startActivity(new Intent(EquipoDetallesActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(EquipoDetallesActivity.this, MyReviews.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

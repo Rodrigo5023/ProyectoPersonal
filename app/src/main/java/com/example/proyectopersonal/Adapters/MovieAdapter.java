@@ -89,7 +89,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         final Movie movie = listaMovie[position];
-        String nombreMovie = movie.getOriginal_title(); holder.nombreMovie.setText(nombreMovie);
+        String nombreMovie = movie.getTitle(); holder.nombreMovie.setText(nombreMovie);
         String overviewMovie = movie.getOverview(); holder.overviewMovie.setText(overviewMovie);
         String estrenoMovie = movie.getRelease_date(); holder.fechaEstrenoMovie.setText(estrenoMovie);
         String rateMovie = movie.getVote_average(); holder.rateMovie.setText(rateMovie);

@@ -140,6 +140,10 @@ public class BusquedaActivity extends AppCompatActivity {
                 return true;
             case R.id.WatchList:
                 startActivity(new Intent(BusquedaActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(BusquedaActivity.this, MyReviews.class));
+                return true;
 
         }
         return onOptionsItemSelected(item);}

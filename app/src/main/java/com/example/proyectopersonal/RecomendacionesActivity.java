@@ -60,7 +60,7 @@ public class RecomendacionesActivity extends AppCompatActivity {
         // PELICULAS CON MAS RATING
         if(isInternetAvailable()) {
             //https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/" + idPelicula+ "/recommendations?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/" + idPelicula+ "/recommendations?api_key=" + movieDB.getApiKey() + "&language=es-ES";
             final RequestQueue queueMoviesRateadas = Volley.newRequestQueue(RecomendacionesActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
@@ -78,6 +78,7 @@ public class RecomendacionesActivity extends AppCompatActivity {
                                     Movie movie = new Movie();
                                     JSONObject pelicula = (JSONObject) results.get(x);
                                     String idMovie = pelicula.getString("id"); movie.setId(Integer.valueOf(idMovie));
+                                    String titleMovie = pelicula.getString("title"); movie.setTitle(titleMovie);
                                     String tituloMovie = pelicula.getString("original_title"); movie.setOriginal_title(tituloMovie);
                                     String descripcionMovie = pelicula.getString("overview");movie.setOverview(descripcionMovie);
                                     String posterMovie = pelicula.getString("poster_path"); movie.setPoster_path(posterMovie);
@@ -131,6 +132,12 @@ public class RecomendacionesActivity extends AppCompatActivity {
                 return true;
             case R.id.PeliculasEstreno:
                 startActivity(new Intent(RecomendacionesActivity.this, PeliculasEstrenoActivity.class));
+                return true;
+            case R.id.WatchList:
+                startActivity(new Intent(RecomendacionesActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(RecomendacionesActivity.this, MyReviews.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

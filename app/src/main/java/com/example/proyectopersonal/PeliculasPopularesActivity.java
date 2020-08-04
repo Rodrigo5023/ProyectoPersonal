@@ -43,6 +43,7 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
     MovieDB movieDB = new MovieDB();
     Movie[] listaMovies;
     int x; int CONDICION = 1;
+    CharSequence query;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
@@ -113,11 +114,9 @@ public class PeliculasPopularesActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(true);
         return true;
 
     }
-
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
 
         switch (item.getItemId()) {

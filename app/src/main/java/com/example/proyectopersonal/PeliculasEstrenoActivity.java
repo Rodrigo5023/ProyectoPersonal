@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -58,7 +60,7 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
         // PELICULAS QUE SE VAN A ESTRENAR
         if (isInternetAvailable()) {
             //https://api.themoviedb.org/3/movie/upcoming?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/upcoming?api_key=" + movieDB.getApiKey() + "&language=en-US";
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/upcoming?api_key=" + movieDB.getApiKey() + "&language=es-ES";
             final RequestQueue queueMoviesEstreno = Volley.newRequestQueue(PeliculasEstrenoActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
@@ -106,10 +108,13 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
 
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.pantallaprincipal, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
+
     }
 
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
@@ -123,6 +128,12 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
                 return true;
             case R.id.PeliculasEstreno:
                 startActivity(new Intent(PeliculasEstrenoActivity.this, PeliculasEstrenoActivity.class));
+                return true;
+            case R.id.WatchList:
+                startActivity(new Intent(PeliculasEstrenoActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(PeliculasEstrenoActivity.this, MyReviews.class));
                 return true;
         }
         return onOptionsItemSelected(item);}

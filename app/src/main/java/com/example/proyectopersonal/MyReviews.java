@@ -96,6 +96,12 @@ public class MyReviews extends AppCompatActivity {
             case R.id.PeliculasEstreno:
                 startActivity(new Intent(MyReviews.this, PeliculasEstrenoActivity.class));
                 return true;
+            case R.id.WatchList:
+                startActivity(new Intent(MyReviews.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(MyReviews.this, MyReviews.class));
+                return true;
         }
         return onOptionsItemSelected(item);}
 

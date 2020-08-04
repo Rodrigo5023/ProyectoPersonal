@@ -91,6 +91,12 @@ public class WatchListActivity extends AppCompatActivity {
             case R.id.PeliculasEstreno:
                 startActivity(new Intent(WatchListActivity.this, PeliculasEstrenoActivity.class));
                 return true;
+            case R.id.WatchList:
+                startActivity(new Intent(WatchListActivity.this, WatchListActivity.class));
+                return true;
+            case R.id.Reviews:
+                startActivity(new Intent(WatchListActivity.this, MyReviews.class));
+                return true;
         }
         return onOptionsItemSelected(item);}
 
