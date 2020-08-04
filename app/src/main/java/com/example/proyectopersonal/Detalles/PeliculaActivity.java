@@ -56,6 +56,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -121,7 +122,7 @@ public class PeliculaActivity extends AppCompatActivity {
 
                     String poster = movie.getPoster_path();
                     String urlPoster = movieDB.getUrlPhoto() + poster;
-                    // publicarImagen(urlPoster);
+                    publicarImagen(urlPoster);
 
                     try {
                         JSONObject jsonObject = new JSONObject(response);
@@ -225,9 +226,9 @@ public class PeliculaActivity extends AppCompatActivity {
 
     }
 
-    //public void publicarImagen (String url){
-    //    Glide.with(getApplicationContext()).load(url).into(moviePoster);
-    //}
+    public void publicarImagen (String url){
+    Picasso.with(getApplicationContext()).load(url).into((ImageView) findViewById(R.id.imageViewPosterMovie));
+    }
 
 
 

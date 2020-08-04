@@ -86,14 +86,14 @@ public class ActorDetallesActivity extends AppCompatActivity {
 
                             TextView nombreActor = (TextView) findViewById(R.id.textViewNombreActor);
                             nombreActor.setText(actor.getName());
-                            TextView biografiaActor = (TextView) findViewById(R.id.textViewBiografia);
+                            TextView biografiaActor = (TextView) findViewById(R.id.textViewbBiografia);
                             biografiaActor.setText(actor.getBiography());
                             ImageView fotoActor = (ImageView) findViewById(R.id.imageViewFotoActor);
                             String poster = actor.getProfile_path();
                             String urlPoster = movieDB.getUrlPhoto() + poster;
                             String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
-                            //if (actor.getProfile_path().equals("")){publicarImagen(urlNull);}
-                            //else { publicarImagen(urlPoster);}
+                            if (actor.getProfile_path().equals("")){publicarImagen(urlNull);}
+                            else { publicarImagen(urlPoster);}
 
                         }
                     },

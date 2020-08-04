@@ -8,19 +8,15 @@
     tools:context=".PeliculasPopularesActivity">
 
 
-
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/recyclerViewMovies"
-        android:layout_width="413dp"
-        android:layout_height="631dp"
+        android:layout_width="411dp"
+        android:layout_height="586dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

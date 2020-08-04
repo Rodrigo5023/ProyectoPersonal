@@ -2,6 +2,8 @@ package com.example.proyectopersonal.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.proyectopersonal.Entidades.Movie;
 import com.example.proyectopersonal.Detalles.PeliculaActivity;
 import com.example.proyectopersonal.PeliculasPopularesActivity;
@@ -27,6 +30,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -34,7 +40,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     ArrayList<Movie> listaPelisMiradas;
 
-    private static final String urlPhoto = " https://image.tmdb.org/t/p/w600_and_h900_bestv2";
+    private static final String urlPhoto = "https://image.tmdb.org/t/p/w600_and_h900_bestv2";
 
     int condition;
 
@@ -67,7 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             this.overviewMovie = itemView.findViewById(R.id.textViewOverview);
             this.fechaEstrenoMovie = itemView.findViewById(R.id.textViewEstreno);
             this.rateMovie = itemView.findViewById(R.id.textViewRate);
-            this.posterMovie = itemView.findViewById(R.id.imageViewPoster);
+            this.posterMovie = itemView.findViewById(R.id.imageViewMovieUnica);
             this.botonDetalles = itemView.findViewById(R.id.buttonDetalles);
             this.botonBorrar = itemView.findViewById(R.id.buttonEliminarMovie);}
     }
@@ -124,8 +130,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return listaMovie.length;
     }
 
-    public void publicarImagen (String url, MovieViewHolder holder){
-        Glide.with(contexto).load(url).load(url).into(holder.posterMovie);
+    public void publicarImagen (String url, MovieAdapter.MovieViewHolder holder){
+        Glide.with(contexto).load(url).into(holder.posterMovie);
+
+
     }
 
 

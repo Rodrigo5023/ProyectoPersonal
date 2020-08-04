@@ -8,25 +8,25 @@
 
     <ImageView
         android:id="@+id/imageViewFotoEquipo"
-        android:layout_width="205dp"
-        android:layout_height="308dp"
+        android:layout_width="197dp"
+        android:layout_height="300dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/textViewNombreEquipo"
-        android:layout_width="128dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="36dp"
+        android:layout_width="141dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageViewFotoEquipo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,39 +34,68 @@
         android:id="@+id/textViewbBiography"
         android:layout_width="147dp"
         android:layout_height="174dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="12dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toEndOf="@+id/imageViewFotoEquipo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNombreEquipo" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="127dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:layout_width="89dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Participó en:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo" />
 
     <TextView
         android:id="@+id/textViewCantidadEquipo"
-        android:layout_width="184dp"
+        android:layout_width="146dp"
         android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewEquipoMovies"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewEquipoMovies"
-        android:layout_width="365dp"
-        android:layout_height="213dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="403dp"
+        android:layout_height="167dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="115dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="24dp"
+        android:text="Biografía:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFotoEquipo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNombreEquipo" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:text="Películas"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toEndOf="@+id/textViewCantidadEquipo"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoEquipo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

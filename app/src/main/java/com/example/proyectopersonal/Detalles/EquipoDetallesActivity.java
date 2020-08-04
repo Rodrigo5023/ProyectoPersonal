@@ -88,8 +88,8 @@ public class EquipoDetallesActivity extends AppCompatActivity {
                             ImageView fotoActor = (ImageView) findViewById(R.id.imageViewFotoEquipo); String poster = actor.getProfile_path();
                             String urlPoster = movieDB.getUrlPhoto() + poster;
                             String urlNull = "https://pbs.twimg.com/profile_images/640707118610448384/HMiCeu81.jpg";
-                            //if (actor.getProfile_path().equals("")){publicarImagen(urlNull);}
-                            //else { publicarImagen(urlPoster);}
+                            if (actor.getProfile_path().equals("")){publicarImagen(urlNull);}
+                            else { publicarImagen(urlPoster);}
 
                         }
                     },

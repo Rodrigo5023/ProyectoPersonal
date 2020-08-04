@@ -59,7 +59,7 @@ public class PeliculasTopActivity extends AppCompatActivity {
         // PELICULAS CON MAS RATING
         if(isInternetAvailable()) {
             //https://api.themoviedb.org/3/movie/top_rated?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/top_rated?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/top_rated?api_key=" + movieDB.getApiKey() + "&language=en-US&";
             final RequestQueue queueMoviesRateadas = Volley.newRequestQueue(PeliculasTopActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,

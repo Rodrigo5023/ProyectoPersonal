@@ -58,7 +58,7 @@ public class PeliculasEstrenoActivity extends AppCompatActivity {
         // PELICULAS QUE SE VAN A ESTRENAR
         if (isInternetAvailable()) {
             //https://api.themoviedb.org/3/movie/upcoming?api_key=06a1953c26075c04668b820d78955ec7&language=en-US&page=1
-            String urlPelicula = movieDB.getUrlMovieDB() + "movie/upcoming?api_key=" + movieDB.getApiKey() + "&language=en-US&page=1";
+            String urlPelicula = movieDB.getUrlMovieDB() + "movie/upcoming?api_key=" + movieDB.getApiKey() + "&language=en-US";
             final RequestQueue queueMoviesEstreno = Volley.newRequestQueue(PeliculasEstrenoActivity.this);
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlPelicula,
